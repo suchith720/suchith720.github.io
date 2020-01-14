@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	{%- include head.html -%}
+</head>
+<body>
+	{%- include nav.html -%}
+
+	<header class="texture-{{ site.texture.style }}">
+		{%- include page_header.html -%}	
+	</header>
+	<main>
+		<div class="container">
+			{{ content }}
+		</div>
+	</main>
+	{%- include footer.html -%}
+</body>
+</html>
