@@ -4,15 +4,7 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
-
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
-
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
-
-
-[jekyll-organization]: https://github.com/jekyll
+I am Suchith Prabhu, Software Developer at Vehant Technologies Pvt. Ltd. I did my Computer Science Engineering from National Institute of Technology Goa.
+At Vehant I am current working on Under Vehicle Scanning System, which is their security product for detection of undersirable ojects from the
+underside of the vehicle. I am "not" a passionate programmer, but like computer science as a whole and the impact it is having in our day to day life.
+I am interested in Deep Learning, Reinforcement Learning and Alogrithms.
