@@ -1,0 +1,45 @@
+project:
+  type: website
+
+website:
+  favicon: data/images/logo.jpg
+  title: "Suchith Prabhu"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: about.qmd
+        text: About
+      - href: blog.qmd
+        text: Blog
+
+  sidebar:
+    - title: "Navbar"
+      style: "docked"
+      background: dark
+      contents:
+        - section: "Suchith"
+          contents:
+            - href: index.qmd
+              text: Home
+            - href: about.qmd
+              text: About
+            - href: blog.qmd
+              text: Blog
+
+  page-footer:
+    left: "Always hunting for my next life adventure."
+    right:
+      - icon: github
+        href: https://github.com/suchith720
+      - icon: twitter
+        href: https://twitter.com/suchith720
+
+format:
+  html:
+    theme: solar
+    css: styles.css
+    toc: true
+
+
+

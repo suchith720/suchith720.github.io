@@ -1,0 +1,36 @@
+---
+title: "Suchith Prabhu"
+format:
+  html:
+    page-layout: full
+about:
+  template: trestles
+  image-shape: round
+  image: data/images/profile.jpg
+  links:
+    - icon: twitter
+      text: twitter
+      href: https://twitter.com/suchith720
+    - icon: github
+      text: Github
+      href: https://github.com/suchith720
+---
+
+I am a 2nd-year Ph.D. scholar under the supervision of [Dr. Manik Varma](http://manikvarma.org/) and [Dr. Sumeet Agarwal](https://web.iitd.ac.in/~sumeet/) at School of AI, IIT Delhi. My research domain is [Extreme Classification](http://manikvarma.org/downloads/XC/XMLRepository.html), simply put classification on steroids.
+
+Tennis is my first love (yeah, an engineer’s life) and someday soon I will play in professional tournment. I would love to get better at music, but seeing Ph.D. life as of now, it seems like a far fetched dream.
+<!---
+Checkout my attempt to sync my hobbies and research at Link.
+-->
+
+## Education
+
+[Indian Institute of Technology Delhi](https://home.iitd.ac.in/) | New Delhi, India <br>
+PhD in Artificial Intelligence | Aug 2021 - June 2025
+
+[National Institute of Technology Goa](https://www.nitgoa.ac.in/) | Goa, India <br>
+B.Tech in Computer Science | Aug 2015 - May 2019
+
+## Experience
+
+[Vehant Technologies](https://www.vehant.com/) | Software Developer | July 2019 - July 2021
