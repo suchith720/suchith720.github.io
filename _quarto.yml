@@ -10,6 +10,8 @@ website:
         text: Home
       - href: about.qmd
         text: About
+      - href: data/suchith_prabhu_cv.pdf
+        text: "Curriculum Vitae"
       - href: blog.qmd
         text: Blog
 
