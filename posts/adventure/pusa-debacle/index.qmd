@@ -1,0 +1,47 @@
+---
+title: "Pusa Debacle"
+author: "Suchith Prabhu"
+date: "2023-03-05"
+image: ../images/pusa-debacle/thumbnail.jpg
+draft: false
+---
+
+Pusa in Delhi is a really beautiful place, with vast farm lands in the midst of the concrete jungle. If you want to experience the village vibe in Delhi, a visit to the IARI and ICAR campus is a must. The greenery there is truly amazing, and you wouldn't believe you're in a metropolitan city. Not only that, but the variety of plants grown there will enhance your plant identification skills. The beautiful big trees and single-storey houses with vast garden areas will leave you in awe.
+
+Unfortunately, our first attempt to visit Pusa was unsuccessful as the G20 summit was being held on the same day. But we didn't give up, and embarked on the 30 km journey again. However, this trip turned out to be a nightmare, with an unexpected heartbreak. It's ironic that such a beautiful place could also be the setting of a difficult experience. But that's life, right? We have to keep striving and look forward to another trip to make up for the sour experience.
+
+::: {layout-ncol=2}
+![My wonder bag](../images/pusa-debacle/IMG_20230305_050428.jpg){width="30%"}
+
+![Suchith](../images/pusa-debacle/IMG_20230305_050628.jpg){width="30%"}
+:::
+
+
+::: {layout-ncol=3}
+![Pink Dahlia](../images/pusa-debacle/IMG_20230305_064711.jpg)
+
+![White Dahlia](../images/pusa-debacle/IMG_20230305_064824.jpg)
+
+![Dahlias](../images/pusa-debacle/IMG_20230305_064808.jpg)
+:::
+
+
+![Carrot](../images/pusa-debacle/IMG_20230305_064357.jpg)
+
+
+::: {layout-ncol=2}
+
+![Cauliflower](../images/pusa-debacle/IMG_20230305_065050.jpg)
+
+![Onion](../images/pusa-debacle/IMG_20230305_065053.jpg)
+:::
+
+::: {layout-ncol=3}
+![Pusa road](../images/pusa-debacle/IMG_20230305_074415.jpg)
+
+![Durga temple](../images/pusa-debacle/IMG_20230305_080338.jpg)
+
+![Durga temple](../images/pusa-debacle/IMG_20230305_080343.jpg)
+:::
+
+![Back to IIT](../images/pusa-debacle/IMG_20230305_085054.jpg)
