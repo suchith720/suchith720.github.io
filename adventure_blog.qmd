@@ -1,8 +1,8 @@
 ---
-title: "The Alchemist's Workshop"
-subtitle: "Crafting Ideas into Reality"
+title: "Roaming Beyond Borders"
+subtitle: "Adventures of My Life"
 listing:
-  contents: posts
+  contents: posts/adventure
   sort: "date desc"
   type: default
   categories: false
@@ -12,5 +12,4 @@ page-layout: full
 title-block-banner: true
 sidebar: false
 ---
-
 

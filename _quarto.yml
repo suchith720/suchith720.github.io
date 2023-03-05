@@ -3,7 +3,7 @@ project:
 
 website:
   favicon: data/images/logo.jpg
-  title: "Suchith Prabhu"
+  title: "Utopia"
   navbar:
     left:
       - href: index.qmd
@@ -12,22 +12,38 @@ website:
         text: About
       - href: data/suchith_prabhu_cv.pdf
         text: "Curriculum Vitae"
-      - href: blog.qmd
-        text: Blog
+      - sidebar:blogs
 
   sidebar:
     - title: "Navbar"
       style: "docked"
       background: dark
       contents:
-        - section: "Suchith"
+        - section: "Suchith Prabhu"
           contents:
             - href: index.qmd
               text: Home
             - href: about.qmd
               text: About
-            - href: blog.qmd
-              text: Blog
+            - href: data/suchith_prabhu_cv.pdf
+              text: "Curriculum Vitae"
+            - section : Blogs
+              contents:
+                - href: research_blog.qmd
+                  text: Research
+                - href: adventure_blog.qmd
+                  text: Adventure
+
+    - id: blogs
+      title: "Blogs"
+      style: "docked"
+      background: light
+      collapse-level: 2
+      contents:
+        - href: research_blog.qmd
+          text: Research
+        - href: adventure_blog.qmd
+          text: Adventure
 
   page-footer:
     left: "Always hunting for my next life adventure."
