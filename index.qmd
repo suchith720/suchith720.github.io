@@ -5,6 +5,9 @@ subtitle: Journeying Through Life's Mysteries
 
 > "Life is a journey, and if you fall in love with the journey, you will be in love forever." - Peter Hagerty
 
+![](data/images/king_suchith.png){fig-align="center" width="50%"}
+
+
 Welcome to Utopia, a world unlike any other. In Utopia, kindness and caring are the norm, and people go out of their way to help each other. This world is the opposite of Earth, where selfishness and greed often drive people's actions. In Utopia, people strive for growth and progress, but not at the expense of others. They recognize that working together and supporting each other is the best way to achieve their goals.
 The people of Utopia are committed to justice and fairness. They have created a society that is built on the principles of equality, freedom, and respect for all individuals. Discrimination and prejudice are unknown here, and everyone is accepted for who they are.
 In Utopia, there is a strong emphasis on education and personal development. People are encouraged to pursue their passions and interests, and to contribute their unique talents to the betterment of society. Creativity and innovation are valued, and people are always seeking new ways to improve their world.
