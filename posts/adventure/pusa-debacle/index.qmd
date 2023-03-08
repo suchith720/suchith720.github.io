@@ -3,6 +3,7 @@ title: "Pusa Debacle"
 author: "Suchith Prabhu"
 date: "2023-03-05"
 image: ../images/pusa-debacle/thumbnail.jpg
+description: My trip to one of the coolest places in Delhi turned out to be a complete nightmare.
 draft: false
 ---
 

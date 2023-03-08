@@ -1,0 +1,43 @@
+---
+title: "Awesome Holi Day"
+author: "Suchith Prabhu"
+date: "2023-03-08"
+description: OMG, my first ever hostel Holi was simply amazing!
+image: ../images/holi/thumbnail.jpg
+draft: false
+---
+
+Wow, I was totally caught off guard but it turned out to be one of the best days ever! It was a wild day full of music, food, colors, water, and mud. We all let loose and acted like kids again, forgetting about work for a while. I danced my heart out, following my friends' moves and even throwing in some of my own sweet grooves. It got so crazy that my friends even tore my shirt and dragged me into the mud!
+
+Since there wasn't any dinner available in the mess, we had a blast eating pizza and burgers while chatting it up under the gorgeous moonlight. To cap off the day, we all settled in for a movie night and watched "Phir Hera Pheri." It was the perfect way to end a perfect day.
+
+
+
+::: {layout-ncol=2}
+![Suchith](../images/holi/IMG_20230308_123422.jpg)
+
+![Me again](../images/holi/IMG_20230308_124308.jpg)
+:::
+
+
+::: {layout-ncol=2}
+![SIT Gang](../images/holi/IMG_20230308_122623.jpg)
+
+![People playing with Mud](../images/holi/IMG_20230308_122216.jpg)
+:::
+
+
+::: {layout-ncol=2}
+![Adi, Nikita, Megha and Us](../images/holi/IMG_20230308_115159.jpg)
+
+![Shivani, Suchith, Mohit, Mridul](../images/holi/IMG_20230308_210628.jpg)
+:::
+
+
+::: {layout-ncol=2}
+![Suchith, Mridul and Mohit](../images/holi/IMG_20230308_115222.jpg)
+
+![Movie Night](../images/holi/IMG_20230308_223015.jpg)
+:::
+
+
