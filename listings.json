@@ -1,0 +1,16 @@
+[
+  {
+    "listing": "/adventure_blog.html",
+    "items": [
+      "/posts/adventure/holi/index.html",
+      "/posts/adventure/pusa-debacle/index.html"
+    ]
+  },
+  {
+    "listing": "/research_blog.html",
+    "items": [
+      "/posts/research/scratchGPT/index.html",
+      "/posts/research/bewakoof-detector/index.html"
+    ]
+  }
+]
