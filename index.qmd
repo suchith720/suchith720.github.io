@@ -8,17 +8,8 @@ subtitle: Journeying Through Life's Mysteries
 ![](data/images/king_suchith.png){fig-align="center" width="50%"}
 
 
-Welcome to Utopia, a world unlike any other. In Utopia, kindness and caring are the norm, and people go out of their way to help each other. This world is the opposite of Earth, where selfishness and greed often drive people's actions. In Utopia, people strive for growth and progress, but not at the expense of others. They recognize that working together and supporting each other is the best way to achieve their goals.
-The people of Utopia are committed to justice and fairness. They have created a society that is built on the principles of equality, freedom, and respect for all individuals. Discrimination and prejudice are unknown here, and everyone is accepted for who they are.
-In Utopia, there is a strong emphasis on education and personal development. People are encouraged to pursue their passions and interests, and to contribute their unique talents to the betterment of society. Creativity and innovation are valued, and people are always seeking new ways to improve their world.
-Despite the many challenges that Utopia faces, the people are determined to overcome them. They work together to find solutions to problems, and support each other through difficult times. In Utopia, the well-being of the community is just as important as the well-being of the individual.
-Utopia is a world where people live in harmony with each other and with the natural world. It is a place where the pursuit of happiness is not just a goal, but a way of life.
+Hi, I am your King Suchith, and welcome you all to Utopia — a world guided by kindness, fairness, and unity. Here, people support one another, value equality and respect, and work together for shared growth. Education, creativity, and personal development are encouraged, and harmony with nature and society ensures that happiness is not just an aim, but a way of life.
 
 {{< pagebreak >}}
 
-I hereby introduce myself as the creator of the world Utopia, a world that embodies the ideals of peace, equality, and prosperity. It is with great pride that I have crafted this world and I remain committed to its continued growth and development.
-Furthermore, I'm a PhD scholar currently working on extreme classification, exploring the frontiers of machine learning in pursuit of cutting-edge insights and real-world applications.
-In my spare time, I indulge in a variety of hobbies, including painting, tennis, and playing tabla, an Indian percussion instrument that holds a special place in my heart.
-Through this website, I hope to share my passions and insights with you, and invite you to join me on a journey of discovery, exploration, and creativity.
-Whether you're interested in the latest trends in machine learning, the beauty of the arts, or the joys of physical activity and music, there's something for everyone here.
-So, come on in, make yourself comfortable, and let's embark on an adventure together!
+Beyond ruling Utopia and guiding its vision, I am a PhD scholar working on extreme classification, exploring the frontiers of machine learning for real-world impact. In my free time, I enjoy painting, playing tennis, and practicing the tabla—an art form close to my heart. Through this website, I share my interests in research, art, music, and movement, and invite you to join me on a journey of learning, creativity, and discovery.
