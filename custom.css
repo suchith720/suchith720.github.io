@@ -1,0 +1,19 @@
+/*-- scss:defaults --*/
+
+// Import Solar defaults first so we can use its variables if needed
+// (Quarto handles the import automatically, we just override here)
+
+$solar-bg: #002b36; // The standard Solarized Dark background color
+
+// Override Navbar to be a darker shade of the background
+// darken() is a SCSS function that automatically calculates the darker shade
+$navbar-bg: darken($solar-bg, 4%); 
+$sidebar-bg: darken($solar-bg, 2%); 
+
+// Ensure the text on the navbar remains readable (optional fine-tuning)
+$navbar-fg: #93a1a1; 
+$sidebar-fg: #93a1a1; 
+
+/*-- scss:rules --*/
+
+// You can add custom CSS rules here if needed

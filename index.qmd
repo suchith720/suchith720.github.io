@@ -5,11 +5,14 @@ subtitle: Journeying Through Life's Mysteries
 
 > "Life is a journey, and if you fall in love with the journey, you will be in love forever." - Peter Hagerty
 
-![](data/images/king_suchith.png){fig-align="center" width="50%"}
+::: {layout="[40, 60]" layout-valign="center"}
 
+![](data/images/king_suchith.png)
 
+::: {#text-column}
 Hi, I am your King Suchith, and welcome you all to Utopia — a world guided by kindness, fairness, and unity. Here, people support one another, value equality and respect, and work together for shared growth. Education, creativity, and personal development are encouraged, and harmony with nature and society ensures that happiness is not just an aim, but a way of life.
 
-{{< pagebreak >}}
-
 Beyond ruling Utopia and guiding its vision, I am a PhD scholar working on extreme classification, exploring the frontiers of machine learning for real-world impact. In my free time, I enjoy painting, playing tennis, and practicing the tabla—an art form close to my heart. Through this website, I share my interests in research, art, music, and movement, and invite you to join me on a journey of learning, creativity, and discovery.
+:::
+
+:::

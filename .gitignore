@@ -1,3 +1,5 @@
 /.quarto/
 /_site/
 README.md
+
+**/*.quarto_ipynb

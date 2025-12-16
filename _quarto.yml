@@ -55,9 +55,12 @@ website:
 
 format:
   html:
-    theme: solar
+    theme: 
+      - solar
+      - custom.css
     css: styles.css
     toc: true
+    bread-crumbs: false
 
 
 
