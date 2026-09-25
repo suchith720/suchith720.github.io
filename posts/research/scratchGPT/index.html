@@ -79,6 +79,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../../site_libs/bootstrap/bootstrap-8d4a732b907ab7286b9f2c3f2945c193.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -116,14 +119,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta property="og:description" content="The kingdom of Utopia — stories, research and adventures of Suchith Prabhu, PhD scholar in extreme classification.">
 <meta property="og:image" content="https://suchith720.github.io/posts/research/scratchGPT/images/thumbnail.png">
 <meta property="og:site_name" content="root@utopia">
-<meta property="og:image:height" content="1283">
-<meta property="og:image:width" content="1998">
+<meta property="og:image:height" content="1000">
+<meta property="og:image:width" content="1600">
 <meta name="twitter:title" content="GPT from scratch – root@utopia">
 <meta name="twitter:description" content="The kingdom of Utopia — stories, research and adventures of Suchith Prabhu, PhD scholar in extreme classification.">
 <meta name="twitter:image" content="https://suchith720.github.io/posts/research/scratchGPT/images/thumbnail.png">
 <meta name="twitter:creator" content="@suchith720">
-<meta name="twitter:image-height" content="1283">
-<meta name="twitter:image-width" content="1998">
+<meta name="twitter:image-height" content="1000">
+<meta name="twitter:image-width" content="1600">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -384,7 +387,7 @@ speak this in hunger for bread, not in thirst for revenge.
 <div id="fig-bigram" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-bigram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-bigram-output-1.png" class="img-fluid figure-img">
+<a href="index_files/figure-html/fig-bigram-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Bigram Model"><img src="index_files/figure-html/fig-bigram-output-1.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bigram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Bigram Model
@@ -515,19 +518,15 @@ Whay, that E chald</code></pre>
 <section id="generative-pre-trained-transformer" class="level1">
 <h1>Generative Pre-trained Transformer</h1>
 <p>The figure presented below provides an explanation of the self-attention mechanism that serves as the primary ingredient of the GPT model. This mechanism can be considered as the communication component that renders the GPT model highly effective.</p>
-<div id="cell-fig-gpt1" class="cell" data-execution_count="26">
-<div class="cell-output cell-output-display">
 <div id="fig-gpt1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-gpt1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-gpt1-output-1.png" class="img-fluid figure-img">
+<a href="images/masked_attention.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Masked Attention Mechanism"><img src="images/masked_attention.svg" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gpt1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: Masked Attention Mechanism
 </figcaption>
 </figure>
-</div>
-</div>
 </div>
 <p>The <code>head</code> class, as shown below, implements the masked self-attention, given that our language model predicts the subsequent word based on all preceding words. Hence, we should not be able to access words that appear later in the sentence.</p>
 <div id="c6d018c8-afd9-45db-9b5e-1e823ea27446" class="cell" data-execution_count="10">
@@ -558,19 +557,15 @@ Figure&nbsp;2: Masked Attention Mechanism
 <span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> out</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Multihead attention, as applied in this context, leverages the attention mechanism multiple times before concatenating the outputs and passing them through a fully connected layer that yields the final output.</p>
-<div id="cell-fig-gpt2" class="cell" data-execution_count="46">
-<div class="cell-output cell-output-display">
 <div id="fig-gpt2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-gpt2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-gpt2-output-1.png" class="img-fluid figure-img">
+<a href="images/multi_head_attention.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: Multi-head Attention Mechanism"><img src="images/multi_head_attention.svg" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gpt2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3: Multi-head Attention Mechanism
 </figcaption>
 </figure>
-</div>
-</div>
 </div>
 <div id="4944f81d-297e-497a-8d48-91e160b83ff3" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MultiHeadAttention(nn.Module):</span>
@@ -587,19 +582,15 @@ Figure&nbsp;3: Multi-head Attention Mechanism
 <span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.dropout(<span class="va">self</span>.proj(out))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The normal fully connected layer, depicted below, projects the embedding to a higher dimension before projecting it back to the original space. This component serves as the computation component of the architecture.</p>
-<div id="cell-fig-gpt3" class="cell" data-execution_count="28">
-<div class="cell-output cell-output-display">
 <div id="fig-gpt3" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-gpt3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-gpt3-output-1.png" class="img-fluid figure-img">
+<a href="images/feedforward.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;4: Feedforward Mechanism"><img src="images/feedforward.svg" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gpt3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;4: Feedforward Mechanism
 </figcaption>
 </figure>
-</div>
-</div>
 </div>
 <p>The class presented below implements the feedforward network.</p>
 <div id="7575c9f9-ea4e-4d4e-b9aa-9f4dd9b894df" class="cell" data-execution_count="12">
@@ -619,19 +610,15 @@ Figure&nbsp;4: Feedforward Mechanism
 <span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.net(embed)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The decoder block, which consists of the aforementioned multi-head attention and feedforward network, along with the residual connections and layer norm, is shown here.</p>
-<div id="cell-fig-gpt4" class="cell" data-execution_count="52">
-<div class="cell-output cell-output-display">
 <div id="fig-gpt4" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-gpt4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-gpt4-output-1.png" class="img-fluid figure-img">
+<a href="images/block.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;5: Block"><img src="images/block.svg" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gpt4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;5: Block
 </figcaption>
 </figure>
-</div>
-</div>
 </div>
 <p>The class presented below implements the GPT block.</p>
 <div id="49bfeae7-cac2-46d2-a6ec-c582eb05e82e" class="cell" data-execution_count="13">
@@ -652,19 +639,15 @@ Figure&nbsp;5: Block
 <span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Multiple such decoder blocks, mentioned above, are stacked one after the other to create the decoder model.</p>
-<div id="cell-fig-gpt5" class="cell" data-execution_count="43">
-<div class="cell-output cell-output-display">
 <div id="fig-gpt5" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-gpt5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-gpt5-output-1.png" class="img-fluid figure-img">
+<a href="images/gpt_architecture.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;6: GPT Architecture"><img src="images/gpt_architecture.svg" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gpt5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;6: GPT Architecture
 </figcaption>
 </figure>
-</div>
-</div>
 </div>
 <p>The code for the GPT language model is presented below.</p>
 <div id="0ae27225-a044-4f2e-9fa5-f4d4e11bc680" class="cell" data-execution_count="14">
@@ -762,19 +745,15 @@ VqBoIogYoZ qJcQeC,RIY!rVpVVy'Z'HJ:hNS:S!BOVqNGe-!$J&amp;q:YyYJvVns:.eAM-zlQHRdsS
 </div>
 </div>
 <p>To train the language model where each word can only attend to its previous characters, and the output of the model corresponds to the next character, we utilize cross-entropy loss.</p>
-<div id="cell-fig-gpt6" class="cell" data-execution_count="61">
-<div class="cell-output cell-output-display">
 <div id="fig-gpt6" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-gpt6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-gpt6-output-1.png" class="img-fluid figure-img">
+<a href="images/training.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;7: Training Process"><img src="images/training.svg" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gpt6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7: Training Process
 </figcaption>
 </figure>
-</div>
-</div>
 </div>
 <p>The code presented below implements the training procedure.</p>
 <div id="2eee6d24-fd97-48ae-960e-fbeb3dffe647" class="cell" data-execution_count="29">
@@ -830,19 +809,15 @@ step 9500: train loss 2.0160, val loss 2.0716</code></pre>
 </div>
 </div>
 <p>The decoding process, depicted in the image below, involves generating each character one at a time in an auto-regressive manner.</p>
-<div id="cell-fig-gpt7" class="cell" data-execution_count="34">
-<div class="cell-output cell-output-display">
 <div id="fig-gpt7" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-gpt7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-gpt7-output-1.png" class="img-fluid figure-img">
+<a href="images/decoding.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Figure&nbsp;8: Inference"><img src="images/decoding.svg" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gpt7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;8: Inference
 </figcaption>
 </figure>
-</div>
-</div>
 </div>
 <p>The output of the model after training is shown.</p>
 <div id="8743ad74-f861-42eb-9bff-b76b05299189" class="cell panel-input card bg-light p-2" data-execution_count="30">
@@ -1806,6 +1781,38 @@ Coushd. For pare </code></pre>
 </div>
   </div>
 </footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 
