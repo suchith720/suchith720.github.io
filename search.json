@@ -4,61 +4,35 @@
     "href": "research_blog.html",
     "title": "The Alchemist’s Workshop",
     "section": "",
-    "text": "GPT from scratch\n\n\n\n\n\n\n\n\nMar 10, 2023\n\n\nSuchith Prabhu\n\n\n\n\n\n\n\n\n\n\n\n\nBewakoof Detector\n\n\n\n\n\n\n\n\nMar 4, 2023\n\n\nSuchith Prabhu\n\n\n\n\n\nNo matching items",
-    "crumbs": [
-      "Home",
-      "Suchith Prabhu",
-      "Blogs",
-      "Research"
-    ]
+    "text": "total 2\n\n  \n    \n      \n        \n      \n    \n    \n      \n        -rw-r--r-- king 2023-03-10 scratchGPT/ · 7 min\n        workshop\n      \n      GPT from scratch\n      \n      $ cat scratchGPT →\n    \n  \n\n  \n    \n      \n        \n      \n    \n    \n      \n        -rw-r--r-- king 2023-03-04 bewakoof-detector/ · 2 min\n        workshop\n      \n      Bewakoof Detector\n      \n      $ cat bewakoof-detector →\n    \n  \n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "Suchith Prabhu",
+    "title": "The King",
     "section": "",
-    "text": "twitter\n  \n  \n    \n     Github\n  \n\n  \n  \nI am a 5th-year Ph.D. scholar under the supervision of Dr. Manik Varma and Dr. Sumeet Agarwal at School of AI, IIT Delhi. My research domain is Extreme Classification, simply put classification on steroids.\nTennis is my first love—yes, an engineer’s life—and someday I hope to play in professional tournaments. I would also love to grow as a musician, but given the current demands of Ph.D. life, that feels like a far-fetched dream—for now.\n\n\nIndian Institute of Technology Delhi | New Delhi, India  PhD in Artificial Intelligence | Aug 2021 - June 2026\nNational Institute of Technology Goa | Goa, India  B.Tech in Computer Science | Aug 2015 - May 2019",
-    "crumbs": [
-      "Home",
-      "Suchith Prabhu",
-      "About"
-    ]
+    "text": "id --card\n  \n  \n  \n    Suchith Prabhu\n    &gt; King of Utopia · uid 0\n    \n      rolePh.D. scholar\n      labSchool of AI, IIT Delhi\n      fieldExtreme Classification\n      advisorsManik Varma, Sumeet Agarwal\n      lovestennis · tabla · painting\n    \n    \n      github ↗\n      twitter ↗\n      cv.pdf ↓\n    \n  \n\n\n\nI am a 5th-year Ph.D. scholar under the supervision of Dr. Manik Varma and Dr. Sumeet Agarwal at the School of AI, IIT Delhi. My research domain is Extreme Classification. Simply put, it’s classification on steroids.\nTennis is my first love (yes, an engineer’s life), and someday I hope to play in professional tournaments. I would also love to grow as a musician, but with the demands of Ph.D. life, that feels like a far-fetched dream. For now.\n\n\n\n  \n    a1c0de (HEAD → main) · 2025\n    MOGIC accepted at ICML 2025\n    Metadata-infused Oracle Guidance for Improved Extreme Classification · Vancouver, Canada\n  \n  \n    7e57ed · 2025\n    Graph Regularized Encoder Training at WWW '25 Companion\n    Companion Proceedings of the ACM Web Conference 2025 · Sydney, Australia\n  \n  \n    b0071e (branch: phd) · Aug 2021 – June 2026\n    PhD in Artificial Intelligence, Indian Institute of Technology Delhi\n    New Delhi, India · School of AI\n  \n  \n    c0ffee · July 2019 – July 2021\n    Software Developer, Vehant Technologies\n    first job: shipping real software\n  \n  \n    5eed01 (init) · Aug 2015 – May 2019\n    B.Tech in Computer Science, National Institute of Technology Goa\n    Goa, India\n  \n\n\n\n\n\n  \n    MOGIC: Metadata-infused Oracle Guidance for Improved Extreme Classification\n    Suchith Chidananda Prabhu, Bhavyajeet Singh, Anshul Mittal, Siddarth Asokan, Shikhar Mohan, Deepak Saini, Yashoteja Prabhu, Lakshya Kumar, Jian Jiao, Amit S, Niket Tandon, Manish Gupta, Sumeet Agarwal, Manik Varma.\n    ICML 2025 · Forty-second International Conference on Machine LearningVancouver, Canada\n  \n  \n    Graph Regularized Encoder Training for Extreme Classification\n    Anshul Mittal, Shikhar Mohan, Deepak Saini, Siddarth Asokan, Suchith Chidananda Prabhu, Lakshya Kumar, Pankaj Malhotra, Jian Jiao, Amit Singh, Sumeet Agarwal, Soumen Chakrabarti, Purushottam Kar, Manik Varma.\n    WWW '25 Companion · ACM Web Conference 2025Sydney, Australia\n  \n\n\n\n\n\n  🎾 tennisfirst love; the pro-tournament dream is still alive.\n  🪘 tablaan art form close to my heart. dha dhin dhin dha.\n  🎨 paintingbrushes, colors and the occasional royal portrait."
   },
   {
-    "objectID": "about.html#education",
-    "href": "about.html#education",
-    "title": "Suchith Prabhu",
+    "objectID": "about.html#git-log-graph",
+    "href": "about.html#git-log-graph",
+    "title": "The King",
     "section": "",
-    "text": "Indian Institute of Technology Delhi | New Delhi, India  PhD in Artificial Intelligence | Aug 2021 - June 2026\nNational Institute of Technology Goa | Goa, India  B.Tech in Computer Science | Aug 2015 - May 2019",
-    "crumbs": [
-      "Home",
-      "Suchith Prabhu",
-      "About"
-    ]
+    "text": "a1c0de (HEAD → main) · 2025\n    MOGIC accepted at ICML 2025\n    Metadata-infused Oracle Guidance for Improved Extreme Classification · Vancouver, Canada\n  \n  \n    7e57ed · 2025\n    Graph Regularized Encoder Training at WWW '25 Companion\n    Companion Proceedings of the ACM Web Conference 2025 · Sydney, Australia\n  \n  \n    b0071e (branch: phd) · Aug 2021 – June 2026\n    PhD in Artificial Intelligence, Indian Institute of Technology Delhi\n    New Delhi, India · School of AI\n  \n  \n    c0ffee · July 2019 – July 2021\n    Software Developer, Vehant Technologies\n    first job: shipping real software\n  \n  \n    5eed01 (init) · Aug 2015 – May 2019\n    B.Tech in Computer Science, National Institute of Technology Goa\n    Goa, India"
   },
   {
     "objectID": "about.html#publications",
     "href": "about.html#publications",
-    "title": "Suchith Prabhu",
-    "section": "Publications",
-    "text": "Publications\n\nGraph Regularized Encoder Training for Extreme Classification Anshul Mittal, Shikhar Mohan, Deepak Saini, Siddarth Asokan, Suchith Chidananda Prabhu, Lakshya Kumar, Pankaj Malhotra, Jian Jiao, Amit Singh, Sumeet Agarwal, Soumen Chakrabarti, Purushottam Kar, Manik Varma. Companion Proceedings of the ACM on Web Conference 2025   Sydney, Australia\nMOGIC: Metadata-infused Oracle Guidance for Improved Extreme Classification Suchith Chidananda Prabhu, Bhavyajeet Singh, Anshul Mittal, Siddarth Asokan, Shikhar Mohan, Deepak Saini, Yashoteja Prabhu, Lakshya Kumar, Jian Jiao, Amit S, Niket Tandon, Manish Gupta, Sumeet Agarwal, Manik Varma. Forty-second International Conference on Machine Learning 2025   Vancouver, Canada",
-    "crumbs": [
-      "Home",
-      "Suchith Prabhu",
-      "About"
-    ]
+    "title": "The King",
+    "section": "",
+    "text": "MOGIC: Metadata-infused Oracle Guidance for Improved Extreme Classification\n    Suchith Chidananda Prabhu, Bhavyajeet Singh, Anshul Mittal, Siddarth Asokan, Shikhar Mohan, Deepak Saini, Yashoteja Prabhu, Lakshya Kumar, Jian Jiao, Amit S, Niket Tandon, Manish Gupta, Sumeet Agarwal, Manik Varma.\n    ICML 2025 · Forty-second International Conference on Machine LearningVancouver, Canada\n  \n  \n    Graph Regularized Encoder Training for Extreme Classification\n    Anshul Mittal, Shikhar Mohan, Deepak Saini, Siddarth Asokan, Suchith Chidananda Prabhu, Lakshya Kumar, Pankaj Malhotra, Jian Jiao, Amit Singh, Sumeet Agarwal, Soumen Chakrabarti, Purushottam Kar, Manik Varma.\n    WWW '25 Companion · ACM Web Conference 2025Sydney, Australia"
   },
   {
-    "objectID": "about.html#experience",
-    "href": "about.html#experience",
-    "title": "Suchith Prabhu",
-    "section": "Experience",
-    "text": "Experience\nVehant Technologies | Software Developer | July 2019 - July 2021",
-    "crumbs": [
-      "Home",
-      "Suchith Prabhu",
-      "About"
-    ]
+    "objectID": "about.html#beyond-the-lab",
+    "href": "about.html#beyond-the-lab",
+    "title": "The King",
+    "section": "",
+    "text": "🎾 tennisfirst love; the pro-tournament dream is still alive.\n  🪘 tablaan art form close to my heart. dha dhin dhin dha.\n  🎨 paintingbrushes, colors and the occasional royal portrait."
   },
   {
     "objectID": "posts/research/bewakoof-detector/index.html",
@@ -105,26 +79,15 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "The Wondering Wanderer",
+    "title": "Utopia",
     "section": "",
-    "text": "“Life is a journey, and if you fall in love with the journey, you will be in love forever.” - Peter Hagerty\n\n\n\n\n\n\n\nHi, I am your King Suchith, and welcome you all to Utopia — a world guided by kindness, fairness, and unity. Here, people support one another, value equality and respect, and work together for shared growth. Education, creativity, and personal development are encouraged, and harmony with nature and society ensures that happiness is not just an aim, but a way of life.\nBeyond ruling Utopia and guiding its vision, I am a PhD scholar working on extreme classification, exploring the frontiers of machine learning for real-world impact. In my free time, I enjoy painting, playing tennis, and practicing the tabla—an art form close to my heart. Through this website, I share my interests in research, art, music, and movement, and invite you to join me on a journey of learning, creativity, and discovery.",
-    "crumbs": [
-      "Home",
-      "Suchith Prabhu",
-      "Home"
-    ]
+    "text": "king@utopia: ~ — zsh — 80×24\n    \n    \n      \n      ██╗   ██╗████████╗ ██████╗ ██████╗ ██╗ █████╗\n██║   ██║╚══██╔══╝██╔═══██╗██╔══██╗██║██╔══██╗\n██║   ██║   ██║   ██║   ██║██████╔╝██║███████║\n██║   ██║   ██║   ██║   ██║██╔═══╝ ██║██╔══██║\n╚██████╔╝   ██║   ╚██████╔╝██║     ██║██║  ██║\n ╚═════╝    ╚═╝    ╚═════╝ ╚═╝     ╚═╝╚═╝  ╚═╝\n      king@utopia:~$ whoami\n      Suchith Prabhu — King of Utopia, PhD scholar in extreme classification.\n      king@utopia:~$ ls\n      workshop/  expeditions/  king.md  cv.pdf\n    \n  \n\n  \n    \n      \n      ~/portraits/his_majesty.png\n    \n    \n      \n        \n        \n      \n      \n        nameSuchith Prabhu\n        titleKing of Utopia\n        uid0 (root)\n        day jobPhD scholar · IIT Delhi\n        researchextreme classification\n      \n    \n  \n\n\n\n// the realm\n\n\n  \n    drwxr-xr-x  king\n    ⚗\n    ~/workshop\n    The Alchemist's Workshop. Models built from scratch, experiments and ideas made real.\n    cd workshop →\n  \n  \n    drwxr-xr-x  king\n    ⛰\n    ~/expeditions\n    Roaming Beyond Borders. Stories, photos and misadventures from life outside the lab.\n    cd expeditions →\n  \n  \n    -rw-r--r--  king\n    ♛\n    ~/king.md\n    The dossier on the ruler: research, publications, education and lore.\n    cat king.md →\n  \n  \n    -r--r--r--  king\n    ⎙\n    ~/cv.pdf\n    The royal résumé: everything above in one printable scroll.\n    open cv.pdf →\n  \n\n\n// royal decree\n\n\n  \n    \n    /etc/utopia/decree.md\n  \n  \n    /* \"Life is a journey, and if you fall in love with the journey,   you will be in love forever.\" — Peter Hagerty */\n    const utopia = { kindness, fairness, unity };\n    Hi, I am your King Suchith, and I welcome you all to Utopia. It is a world where people support one another, value equality and respect, and work together to grow. Education, creativity and personal growth are encouraged here. Living in harmony with nature and with each other makes happiness a way of life, not just a goal.\n    Beyond ruling Utopia, I am a PhD scholar working on extreme classification, exploring the frontiers of machine learning for real-world impact. In my free time I paint, play tennis and practise the tabla, an art form close to my heart. Through this website I share my research, art, music and movement, and I invite you to join me in learning, creating and discovering.\n    \n      research: extreme classification\n      lab: School of AI, IIT Delhi\n      hobbies: tennis · tabla · painting\n      status: hunting the next adventure\n    \n  \n\n\n// latest transmissions\n\n\n  total 4\n\n  \n    \n      \n        \n      \n    \n    \n      \n        -rw-r--r-- king 2023-03-10 scratchGPT/ · 7 min\n        workshop\n      \n      GPT from scratch\n      \n      $ cat scratchGPT →\n    \n  \n\n  \n    \n      \n        \n      \n    \n    \n      \n        -rw-r--r-- king 2023-03-08 holi/ · 1 min\n        expedition\n      \n      Awesome Holi Day\n      OMG, my first ever hostel Holi was simply amazing!\n      $ cat holi →\n    \n  \n\n  \n    \n      \n        \n      \n    \n    \n      \n        -rw-r--r-- king 2023-03-05 pusa-debacle/ · 1 min\n        expedition\n      \n      Pusa Debacle\n      My trip to one of the coolest places in Delhi turned out to be a complete nightmare.\n      $ cat pusa-debacle →\n    \n  \n\n  \n    \n      \n        \n      \n    \n    \n      \n        -rw-r--r-- king 2023-03-04 bewakoof-detector/ · 2 min\n        workshop\n      \n      Bewakoof Detector\n      \n      $ cat bewakoof-detector →\n    \n  \n\n\nNo matching items"
   },
   {
     "objectID": "adventure_blog.html",
     "href": "adventure_blog.html",
     "title": "Roaming Beyond Borders",
     "section": "",
-    "text": "Awesome Holi Day\n\n\nOMG, my first ever hostel Holi was simply amazing!\n\n\n\n\n\nMar 8, 2023\n\n\nSuchith Prabhu\n\n\n\n\n\n\n\n\n\n\n\n\nPusa Debacle\n\n\nMy trip to one of the coolest places in Delhi turned out to be a complete nightmare.\n\n\n\n\n\nMar 5, 2023\n\n\nSuchith Prabhu\n\n\n\n\n\nNo matching items",
-    "crumbs": [
-      "Home",
-      "Suchith Prabhu",
-      "Blogs",
-      "Adventure"
-    ]
+    "text": "total 2\n\n  \n    \n      \n        \n      \n    \n    \n      \n        -rw-r--r-- king 2023-03-08 holi/ · 1 min\n        expedition\n      \n      Awesome Holi Day\n      OMG, my first ever hostel Holi was simply amazing!\n      $ cat holi →\n    \n  \n\n  \n    \n      \n        \n      \n    \n    \n      \n        -rw-r--r-- king 2023-03-05 pusa-debacle/ · 1 min\n        expedition\n      \n      Pusa Debacle\n      My trip to one of the coolest places in Delhi turned out to be a complete nightmare.\n      $ cat pusa-debacle →\n    \n  \n\n\nNo matching items"
   }
 ]

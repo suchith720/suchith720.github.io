@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>The Alchemist’s Workshop – Utopia</title>
+<title>The Alchemist’s Workshop – root@utopia</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./data/images/logo.jpg" rel="icon" type="image/jpeg">
+<link href="./assets/favicon.svg" rel="icon" type="image/svg+xml">
 <script src="site_libs/quarto-listing/list.min.js"></script>
 <script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
@@ -40,10 +40,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-17213b83223d54587794083afa1a79e4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-a92744c14e96b25256f8dee89d4d9f1b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-8d4a732b907ab7286b9f2c3f2945c193.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -56,7 +56,6 @@ ul.task-list li input[type="checkbox"] {
     "/",
     "s"
   ],
-  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -81,9 +80,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-project','listing-website','listing-format','listing-language','listing-freeze','listing-title-block-banner','listing-author','listing-title','listing-date','listing-jupyter','listing-image','listing-sidebar','listing-path','listing-outputHref','listing-date-modified','listing-description','listing-filename','listing-file-modified','listing-reading-time','listing-word-count',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-date-modified-sort'] },{ data: ['listing-file-modified-sort'] },{ data: ['listing-reading-time-sort'] },{ data: ['listing-word-count-sort'] }],
       
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description"],
+      searchColumns: ["listing-project","listing-website","listing-format","listing-language","listing-freeze","listing-title-block-banner","listing-author","listing-title","listing-date","listing-jupyter","listing-image","listing-sidebar","listing-path","listing-outputHref","listing-date-modified","listing-description","listing-filename","listing-file-modified","listing-reading-time","listing-word-count"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -100,6 +99,11 @@ ul.task-list li input[type="checkbox"] {
     }
   })
   </script>
+<style>html{ scroll-behavior: smooth; }</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300..800;1,400&amp;family=VT323&amp;display=swap" rel="stylesheet">
+<meta name="theme-color" content="#07090a">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -131,18 +135,32 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="The Alchemist’s Workshop – root@utopia">
+<meta property="og:description" content="Crafting ideas into reality: models from scratch, experiments and research notes.">
+<meta property="og:image" content="https://suchith720.github.io/posts/research/scratchGPT/images/thumbnail.png">
+<meta property="og:site_name" content="root@utopia">
+<meta property="og:image:alt" content="GPT from scratch">
+<meta property="og:image:height" content="1283">
+<meta property="og:image:width" content="1998">
+<meta name="twitter:title" content="The Alchemist’s Workshop – root@utopia">
+<meta name="twitter:description" content="Crafting ideas into reality: models from scratch, experiments and research notes.">
+<meta name="twitter:image" content="https://suchith720.github.io/posts/research/scratchGPT/images/thumbnail.png">
+<meta name="twitter:creator" content="@suchith720">
+<meta name="twitter:image:alt" content="GPT from scratch">
+<meta name="twitter:image-height" content="1283">
+<meta name="twitter:image-width" content="1998">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+  <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Utopia</span>
+    <span class="navbar-title">root@utopia</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -153,31 +171,36 @@ window.Quarto = {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="./index.html"> 
-<span class="menu-text">Home</span></a>
+<span class="menu-text">~/home</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./about.html"> 
-<span class="menu-text">About</span></a>
+<span class="menu-text">~/king</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./research_blog.html" aria-current="page"> 
+<span class="menu-text">~/workshop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./adventure_blog.html"> 
+<span class="menu-text">~/expeditions</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./data/suchith_prabhu_cv.pdf"> 
-<span class="menu-text">Curriculum Vitae</span></a>
+<span class="menu-text">cv.pdf</span></a>
   </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-blogs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Blogs</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-blogs">    
-        <li>
-    <a class="dropdown-item" href="./research_blog.html">
- <span class="dropdown-text">Research</span></a>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/suchith720"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="./adventure_blog.html">
- <span class="dropdown-text">Adventure</span></a>
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/suchith720"> <i class="bi bi-twitter-x" role="img" aria-label="Twitter / X">
+</i> 
+<span class="menu-text"></span></a>
   </li>  
-    </ul>
-  </li>
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -186,95 +209,589 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page">
-      <h1 class="title">The Alchemist’s Workshop</h1>
-            <p class="subtitle lead">Crafting Ideas into Reality</p>
-                      </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta column-page">
-
-      
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
-    </div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
-
-
-
-
-
-
-
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1678386600000" data-listing-file-modified-sort="1765907716351" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1239">
-<div class="thumbnail"><a href="./posts/research/scratchGPT/index.html" class="no-external">
-
-<img loading="lazy" src="./posts/research/scratchGPT/images/thumbnail.png" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/research/scratchGPT/index.html" class="no-external">GPT from scratch</a>
-</h3>
-<div class="delink listing-description"><a href="./posts/research/scratchGPT/index.html" class="no-external">
-Language models have become increasingly popular in recent times. People are using it for various purposes, including information retrieval, language assistance and code…
-</a></div>
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">The Alchemist’s Workshop</h1>
+<p class="subtitle lead">Crafting ideas into reality: models from scratch, experiments and research notes.</p>
 </div>
-<div class="metadata">
-<a href="./posts/research/scratchGPT/index.html" class="no-external">
-<div class="listing-date">
-Mar 10, 2023
-</div>
-<div class="listing-author">
-Suchith Prabhu
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-listing-date-sort="1677868200000" data-listing-file-modified-sort="1765907716155" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="310">
-<div class="thumbnail"><a href="./posts/research/bewakoof-detector/index.html" class="no-external">
 
-<img loading="lazy" src="./posts/research/bewakoof-detector/thumbnail.png" class="thumbnail-image">
 
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/research/bewakoof-detector/index.html" class="no-external">Bewakoof Detector</a>
-</h3>
-<div class="delink listing-description"><a href="./posts/research/bewakoof-detector/index.html" class="no-external">
-I trained this cool image classifier using the fastai library to mess with my friend who we both agree is bewakoof with directions.
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/research/bewakoof-detector/index.html" class="no-external">
-<div class="listing-date">
-Mar 4, 2023
-</div>
-<div class="listing-author">
-Suchith Prabhu
-</div>
-</a>
-</div>
-</div>
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+
+
+
+
+<div class="quarto-listing quarto-listing-container-custom" id="listing-listing">
+<div class="listing-ls">
+  <div class="ls-total">total 2</div>
+
+  <a class="ls-item reveal" href="./posts/research/scratchGPT/index.html" data-index="0" data-listing-date-sort="1678392000000" data-listing-file-modified-sort="1765907716351" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1239" data-post="" data-title="GPT from scratch" data-realm="workshop" data-slug="scratchGPT">
+    <div class="ls-thumb">
+      
+        <img src="./posts/research/scratchGPT/images/thumbnail.png" alt="GPT from scratch" loading="lazy">
+      
+    </div>
+    <div class="ls-body">
+      <div class="ls-meta">
+        <span class="perm">-rw-r--r--</span> <span class="own">king</span> <span class="date">2023-03-10</span> scratchGPT/ <span class="rt">· 7 min</span>
+        <span class="ls-tag">workshop</span>
+      </div>
+      <div class="ls-title">GPT from scratch</div>
+      <p class="ls-desc">Language models have become increasingly popular in recent times. People are using it for various purposes, including information retrieval, language assistance and code…</p>
+      <span class="ls-read">$ cat scratchGPT →</span>
+    </div>
+  </a>
+
+  <a class="ls-item reveal" href="./posts/research/bewakoof-detector/index.html" data-index="1" data-listing-date-sort="1677873600000" data-listing-file-modified-sort="1765907716155" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="310" data-post="" data-title="Bewakoof Detector" data-realm="workshop" data-slug="bewakoof-detector">
+    <div class="ls-thumb">
+      
+        <img src="./posts/research/bewakoof-detector/thumbnail.png" alt="Bewakoof Detector" loading="lazy">
+      
+    </div>
+    <div class="ls-body">
+      <div class="ls-meta">
+        <span class="perm">-rw-r--r--</span> <span class="own">king</span> <span class="date">2023-03-04</span> bewakoof-detector/ <span class="rt">· 2 min</span>
+        <span class="ls-tag">workshop</span>
+      </div>
+      <div class="ls-title">Bewakoof Detector</div>
+      <p class="ls-desc">I trained this cool image classifier using the fastai library to mess with my friend who we both agree is bewakoof with directions.</p>
+      <span class="ls-read">$ cat bewakoof-detector →</span>
+    </div>
+  </a>
+
 </div>
 <div class="listing-no-matching d-none">No matching items</div>
 </div></main> <!-- /main -->
+<script>
+/* ─────────────────────────────────────────────────────────────
+   UtopiaOS — client runtime for suchith720.github.io
+   - per-page shell prompt above titles
+   - reveal-on-scroll
+   - matrix rain + interactive shell on the home page
+   ───────────────────────────────────────────────────────────── */
+(function () {
+  "use strict";
+
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var store = {
+    get: function (k) { try { return window.sessionStorage.getItem(k); } catch (e) { return null; } },
+    set: function (k, v) { try { window.sessionStorage.setItem(k, v); } catch (e) {} }
+  };
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  // ── Per-page prompt ──────────────────────────────────────────
+  function pagePrompt() {
+    var header = document.getElementById("title-block-header");
+    if (!header || document.body.classList.contains("page-home")) return;
+    var p = window.location.pathname.replace(/\/index\.html$/, "/").replace(/\.html$/, "");
+    var path = "~", cmd = "cat README.md";
+    var m;
+    if ((m = p.match(/posts\/research\/([^/]+)/))) { path = "~/workshop/" + m[1]; cmd = "cat index.md"; }
+    else if ((m = p.match(/posts\/adventure\/([^/]+)/))) { path = "~/expeditions/" + m[1]; cmd = "cat index.md"; }
+    else if (/research_blog/.test(p)) { path = "~/workshop"; cmd = "ls -la"; }
+    else if (/adventure_blog/.test(p)) { path = "~/expeditions"; cmd = "ls -la"; }
+    else if (/about/.test(p)) { path = "~"; cmd = "cat king.md"; }
+    else if (/404/.test(p)) { return; }
+    var el = document.createElement("div");
+    el.className = "utopia-prompt";
+    el.innerHTML = '<span class="p-user">guest</span><span class="p-at">@</span><span class="p-host">utopia</span>:' +
+      '<span class="p-path">' + esc(path) + '</span>$ <span class="p-cmd">' + esc(cmd) + '</span> <span class="cursor"></span>';
+    header.insertBefore(el, header.firstChild);
+  }
+
+  // ── Reveal on scroll ─────────────────────────────────────────
+  function reveals() {
+    var els = document.querySelectorAll(".reveal");
+    if (!("IntersectionObserver" in window) || reduceMotion) {
+      els.forEach(function (e) { e.classList.add("in"); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+      });
+    }, { rootMargin: "0px 0px -40px 0px" });
+    els.forEach(function (e) { io.observe(e); });
+  }
+
+  // ── Matrix rain ──────────────────────────────────────────────
+  var matrix = { boost: false };
+  function matrixRain() {
+    var c = document.getElementById("matrix");
+    if (!c || reduceMotion) return;
+    var ctx = c.getContext("2d");
+    var glyphs = "01アイウエオカキクケコサシスセソタチツテトナニヌネノλΣ∂∇∞≈⊕".split("");
+    var size = 16, cols, drops, w, h, last = 0;
+    function resize() {
+      var dpr = window.devicePixelRatio || 1;
+      w = window.innerWidth; h = window.innerHeight;
+      c.width = w * dpr; c.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cols = Math.ceil(w / size);
+      drops = [];
+      for (var i = 0; i < cols; i++) drops[i] = Math.random() * -60;
+    }
+    resize();
+    window.addEventListener("resize", resize);
+    function frame(t) {
+      requestAnimationFrame(frame);
+      if (document.hidden || t - last < 55) return;
+      last = t;
+      ctx.fillStyle = "rgba(7, 9, 10, 0.12)";
+      ctx.fillRect(0, 0, w, h);
+      ctx.font = size + "px JetBrains Mono, monospace";
+      for (var i = 0; i < cols; i++) {
+        var y = drops[i] * size;
+        if (y > 0) {
+          var crown = Math.random() < 0.004;
+          ctx.fillStyle = crown ? "#f5c542" : (Math.random() < 0.08 ? "#c8ffe0" : "#3dff9a");
+          ctx.fillText(crown ? "♛" : glyphs[(Math.random() * glyphs.length) | 0], i * size, y);
+        }
+        if (y > h && Math.random() > 0.975) drops[i] = 0;
+        drops[i] += matrix.boost ? 1.4 : 1;
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  // ── The shell ────────────────────────────────────────────────
+  function shell() {
+    var body = document.getElementById("shell-body");
+    if (!body) return;
+
+    var BANNER =
+      "██╗   ██╗████████╗ ██████╗ ██████╗ ██╗ █████╗\n" +
+      "██║   ██║╚══██╔══╝██╔═══██╗██╔══██╗██║██╔══██╗\n" +
+      "██║   ██║   ██║   ██║   ██║██████╔╝██║███████║\n" +
+      "██║   ██║   ██║   ██║   ██║██╔═══╝ ██║██╔══██║\n" +
+      "╚██████╔╝   ██║   ╚██████╔╝██║     ██║██║  ██║\n" +
+      " ╚═════╝    ╚═╝    ╚═════╝ ╚═╝     ╚═╝╚═╝  ╚═╝";
+
+    // posts, harvested from the "latest transmissions" listing
+    var posts = [];
+    document.querySelectorAll("[data-post]").forEach(function (a) {
+      var d = a.querySelector(".ls-desc"), dt = a.querySelector(".date");
+      posts.push({
+        slug: a.getAttribute("data-slug"),
+        title: a.getAttribute("data-title"),
+        realm: a.getAttribute("data-realm"),
+        href: a.getAttribute("href"),
+        desc: d ? d.textContent.trim() : "",
+        date: dt ? dt.textContent.trim() : ""
+      });
+    });
+
+    var DIRS = {
+      workshop: { href: "research_blog.html", realm: "workshop", blurb: "The Alchemist's Workshop — crafting ideas into reality." },
+      expeditions: { href: "adventure_blog.html", realm: "expedition", blurb: "Roaming Beyond Borders — adventures of my life." }
+    };
+    var FILES = {
+      "king.md": { href: "about.html" },
+      "cv.pdf": { href: "data/suchith_prabhu_cv.pdf" },
+      "decree.md": {},
+      "socials.txt": {}
+    };
+    var cwd = "~";
+    var history = [], hIdx = 0;
+    var out, inputLine, input, busy = true;
+
+    function promptHTML() {
+      return '<span class="sh-prompt">guest<span class="sh-dim">@</span><span class="host">utopia</span>:<span class="path">' +
+        esc(cwd) + "</span>$</span>";
+    }
+    function link(text, href, cls) {
+      return '<a class="sh-link' + (cls ? " " + cls : "") + '" href="' + esc(href) + '">' + esc(text) + "</a>";
+    }
+    function print(html, cls) {
+      var d = document.createElement("div");
+      d.className = "sh-line" + (cls ? " " + cls : "");
+      d.innerHTML = html === "" ? "&nbsp;" : html;
+      out.appendChild(d);
+      scroll();
+      return d;
+    }
+    function printPre(text, cls) {
+      var p = document.createElement("pre");
+      p.className = cls || "";
+      p.textContent = text;
+      out.appendChild(p);
+      scroll();
+    }
+    function scroll() { body.scrollTop = body.scrollHeight; }
+    function sleep(ms) { return new Promise(function (r) { setTimeout(r, skip ? 0 : ms); }); }
+
+    function dirPosts(dir) {
+      var realm = DIRS[dir] && DIRS[dir].realm;
+      return posts.filter(function (p) { return p.realm === realm; });
+    }
+    function currentDir() { return cwd === "~" ? null : cwd.replace("~/", ""); }
+    function findPost(name) {
+      name = (name || "").replace(/\/$/, "").split("/").pop();
+      var pool = currentDir() ? dirPosts(currentDir()) : posts;
+      return pool.filter(function (p) { return p.slug.toLowerCase() === name.toLowerCase(); })[0] ||
+        posts.filter(function (p) { return p.slug.toLowerCase() === name.toLowerCase(); })[0];
+    }
+    function go(href) {
+      print('<span class="sh-dim">→ opening ' + esc(href) + " …</span>");
+      setTimeout(function () { window.location.href = href; }, 380);
+    }
+    function listing(dir) {
+      if (!dir) {
+        print(link("workshop/", "#", "sh-cd") + "  " + link("expeditions/", "#", "sh-cd") + "  " +
+          link("king.md", "about.html") + "  " + link("cv.pdf", "data/suchith_prabhu_cv.pdf") + "  " +
+          '<span class="sh-gold">decree.md</span>  <span class="sh-gold">socials.txt</span>');
+        return;
+      }
+      var ps = dirPosts(dir);
+      if (!ps.length) { print('<span class="sh-dim">(empty — the scribes are still writing)</span>'); return; }
+      ps.forEach(function (p) {
+        print('<span class="sh-dim">-rw-r--r-- king ' + esc(p.date) + "</span>  " + link(p.slug + "/", p.href) +
+          '  <span class="sh-dim"># ' + esc(p.title) + "</span>");
+      });
+      print('<span class="sh-dim">full index: </span>' + link(DIRS[dir].href, DIRS[dir].href));
+    }
+
+    var COMMANDS = {
+      help: function () {
+        var rows = [
+          ["whoami", "who rules this place"],
+          ["ls [dir]", "list the kingdom"],
+          ["cd <dir>", "enter workshop/ or expeditions/"],
+          ["cat <file>", "read a file or post"],
+          ["open <file>", "visit a page (open . for current dir)"],
+          ["neofetch", "system information"],
+          ["git log", "the king's history"],
+          ["socials", "find me elsewhere"],
+          ["matrix / crt", "toggle visual effects"],
+          ["clear", "clear the screen"]
+        ];
+        print('<span class="sh-gold">UtopiaOS shell — available commands</span>');
+        rows.forEach(function (r) {
+          print('  <span class="sh-ok">' + esc((r[0] + "              ").slice(0, 14)) + '</span><span class="sh-dim">' + esc(r[1]) + "</span>");
+        });
+        print('<span class="sh-dim">  …and a few hidden ones. A true hacker explores.</span>');
+      },
+      whoami: function () {
+        print('<span class="sh-gold">Suchith Prabhu</span> — King of Utopia <span class="sh-dim">(uid=0, root)</span>');
+        print("PhD scholar @ School of AI, IIT Delhi · working on <span class=\"sh-ok\">extreme classification</span>");
+        print('<span class="sh-dim">off-duty: tennis · tabla · painting</span>');
+        print('<span class="sh-dim">you, on the other hand, are </span>guest<span class="sh-dim">. welcome anyway.</span>');
+      },
+      ls: function (args) {
+        var t = (args[0] || "").replace(/^~\/?/, "").replace(/\/$/, "");
+        if (!t || t === ".") return listing(currentDir());
+        if (t === "..") return listing(null);
+        if (DIRS[t]) return listing(t);
+        print("ls: cannot access '" + esc(args[0]) + "': No such file or directory", "sh-err");
+      },
+      cd: function (args) {
+        var t = (args[0] || "~").replace(/^~\/?/, "").replace(/\/$/, "");
+        if (!t || t === ".." || t === "~") { cwd = "~"; return; }
+        if (t === ".") return;
+        if (DIRS[t]) { cwd = "~/" + t; print('<span class="sh-dim">' + esc(DIRS[t].blurb) + "  (try </span>ls<span class=\"sh-dim\"> or </span>open .<span class=\"sh-dim\">)</span>"); return; }
+        if (findPost(t)) { print("cd: " + esc(t) + ": it's a story, not a directory — try <span class=\"sh-ok\">open " + esc(t) + "</span>", "sh-warn"); return; }
+        print("cd: no such file or directory: " + esc(args[0]), "sh-err");
+      },
+      pwd: function () { print(cwd.replace("~", "/home/king")); },
+      cat: function (args) {
+        var f = (args[0] || "").replace(/^~\//, "");
+        if (!f) { print("cat: missing file operand", "sh-err"); return; }
+        if (f === "king.md") { COMMANDS.whoami(); print(link("→ read the full dossier", "about.html")); return; }
+        if (f === "decree.md") {
+          print('<span class="sh-gold"># The Decree of Utopia</span>');
+          print("A world guided by kindness, fairness and unity. People support one another, value equality");
+          print("and respect, and work together for shared growth. Education, creativity and personal");
+          print("development are encouraged — happiness is not just an aim, but a way of life.");
+          return;
+        }
+        if (f === "socials.txt") return COMMANDS.socials();
+        if (f === "cv.pdf") { print("cat: cv.pdf: binary file — you want <span class=\"sh-ok\">open cv.pdf</span>", "sh-warn"); return; }
+        if (DIRS[f.replace(/\/$/, "")]) { print("cat: " + esc(f) + ": Is a directory", "sh-err"); return; }
+        var p = findPost(f);
+        if (p) {
+          print('<span class="sh-gold"># ' + esc(p.title) + '</span>  <span class="sh-dim">' + esc(p.date) + "</span>");
+          if (p.desc) print(esc(p.desc));
+          print(link("→ read the full story", p.href));
+          return;
+        }
+        print("cat: " + esc(f) + ": No such file or directory", "sh-err");
+      },
+      open: function (args) {
+        var f = (args[0] || ".").replace(/^~\//, "").replace(/\/$/, "");
+        if (f === "." ) { var d = currentDir(); return go(d ? DIRS[d].href : "about.html"); }
+        if (DIRS[f]) return go(DIRS[f].href);
+        if (FILES[f] && FILES[f].href) return go(FILES[f].href);
+        var p = findPost(f);
+        if (p) return go(p.href);
+        print("open: " + esc(f) + ": not found", "sh-err");
+      },
+      socials: function () {
+        print("github   " + link("github.com/suchith720", "https://github.com/suchith720"));
+        print("twitter  " + link("twitter.com/suchith720", "https://twitter.com/suchith720"));
+        print("cv       " + link("cv.pdf", "data/suchith_prabhu_cv.pdf"));
+      },
+      neofetch: function () {
+        var art = [
+          "     ♦     ♦     ♦    ",
+          "    /\\    /\\    /\\    ",
+          "   /  \\__/  \\__/  \\   ",
+          "  |   ◆    ◆    ◆  |  ",
+          "  |________________|  ",
+          "  [================]  ",
+          "                      ",
+          "                      "
+        ];
+        var info = [
+          '<span class="sh-ok">guest</span>@<span class="sh-gold">utopia</span>',
+          '<span class="sh-dim">-----------------</span>',
+          '<span class="sh-gold">OS</span>: UtopiaOS x86_64 (kingdom edition)',
+          '<span class="sh-gold">Host</span>: School of AI, IIT Delhi',
+          '<span class="sh-gold">Kernel</span>: extreme-classification',
+          '<span class="sh-gold">Shell</span>: zsh (royal decree mode)',
+          '<span class="sh-gold">Packages</span>: tennis, tabla, painting',
+          '<span class="sh-gold">Theme</span>: phosphor-green · crown-gold'
+        ];
+        for (var i = 0; i < art.length; i++) print('<span class="sh-gold">' + esc(art[i]) + "</span>" + info[i]);
+      },
+      git: function (args) {
+        if (args[0] !== "log") { print("git: try <span class=\"sh-ok\">git log</span>", "sh-warn"); return; }
+        var log = [
+          ["2025", "MOGIC accepted at ICML 2025 · Vancouver"],
+          ["2025", "Graph-regularized encoders · WWW '25 Companion · Sydney"],
+          ["2021", "checkout -b phd → School of AI, IIT Delhi"],
+          ["2019", "Software Developer @ Vehant Technologies"],
+          ["2015", "init: B.Tech CS @ NIT Goa"]
+        ];
+        log.forEach(function (l, i) {
+          print('<span class="sh-gold">* ' + (["a1c0de", "7e57ed", "b0071e", "c0ffee", "5eed01"][i]) + "</span> " +
+            (i === 0 ? '<span class="sh-cyan">(HEAD → main)</span> ' : "") +
+            '<span class="sh-dim">' + l[0] + "</span>  " + esc(l[1]));
+        });
+        print(link("→ full history", "about.html"));
+      },
+      history: function () { history.forEach(function (h, i) { print('<span class="sh-dim">' + (i + 1) + "</span>  " + esc(h)); }); },
+      date: function () { print(new Date().toString()); },
+      echo: function (args) { print(esc(args.join(" "))); },
+      uname: function () { print("UtopiaOS 2.6.0-royal #1 SMP PREEMPT_KINGDOM x86_64"); },
+      clear: function () { out.innerHTML = ""; },
+      matrix: function () {
+        var c = document.getElementById("matrix");
+        if (!c) return;
+        matrix.boost = !matrix.boost;
+        c.style.opacity = matrix.boost ? ".5" : "";
+        print(matrix.boost ? "wake up, guest… the matrix has you." : "back to reality.", "sh-ok");
+      },
+      crt: function () {
+        document.body.classList.toggle("no-crt");
+        print("crt scanlines " + (document.body.classList.contains("no-crt") ? "off" : "on"), "sh-ok");
+      },
+      sudo: function () {
+        print('<span class="sh-dim">[sudo] password for guest:</span>');
+        print("guest is not in the sudoers file. Only the King holds root.", "sh-err");
+        print("This incident will be reported to the royal court.", "sh-err");
+      },
+      su: function () { COMMANDS.sudo(); },
+      rm: function () { print("rm: permission denied — the kingdom is protected by royal decree.", "sh-err"); },
+      exit: function () { print("There is no exit from Utopia. (Closing the tab still works, though.)", "sh-warn"); },
+      vim: function () { print("You are now trapped in vim forever. Just kidding — :q!", "sh-warn"); },
+      emacs: function () { print("emacs: a great operating system, lacking only a decent editor.", "sh-warn"); },
+      tabla: function () {
+        print('<span class="sh-gold">teentaal · 16 beats</span>');
+        print("dha dhin dhin dha | dha dhin dhin dha | dha tin tin ta | ta dhin dhin dha");
+      },
+      tennis: function () {
+        print("  o  ·  ·  ·  ·  ·  🎾");
+        print(" /|\\                    <span class=\"sh-ok\">ACE.</span> 15–love. The king serves again.");
+        print(" / \\");
+      },
+      paint: function () { print("🎨  the royal canvas is still drying. check back soon.", "sh-gold"); },
+      crown: function () { print("♛  long live the king  ♛", "sh-gold"); },
+      ping: function () { print("PING utopia (127.0.0.1): 56 data bytes"); print("64 bytes from utopia: icmp_seq=0 ttl=64 time=0.042 ms — the kingdom is alive.", "sh-ok"); },
+      man: function (args) { print("No manual entry for " + esc(args[0] || "that") + ". Try <span class=\"sh-ok\">help</span>."); }
+    };
+    var ALIASES = {
+      "?": "help", dir: "ls", ll: "ls", "ls -la": "ls", about: "cat king.md", research: "cd workshop",
+      blog: "ls workshop", adventures: "cd expeditions", cv: "open cv.pdf", contact: "socials",
+      king: "crown", nano: "vim", vi: "vim", fastfetch: "neofetch", cls: "clear", quit: "exit", logout: "exit"
+    };
+
+    function run(raw) {
+      var line = raw.trim();
+      print(promptHTML() + " " + esc(raw));
+      if (!line) return;
+      history.push(line); hIdx = history.length;
+      if (ALIASES[line]) line = ALIASES[line];
+      var parts = line.split(/\s+/);
+      var cmd = parts[0].toLowerCase();
+      if (ALIASES[cmd]) { parts = ALIASES[cmd].split(/\s+/).concat(parts.slice(1)); cmd = parts[0]; }
+      if (cmd === "rm" && /-rf?/.test(parts[1] || "")) return COMMANDS.rm();
+      var fn = COMMANDS[cmd];
+      if (fn) fn(parts.slice(1));
+      else print("zsh: command not found: " + esc(cmd) + " — try <span class=\"sh-ok\">help</span>", "sh-err");
+    }
+
+    function completions(val) {
+      var parts = val.split(/\s+/);
+      if (parts.length === 1) {
+        return Object.keys(COMMANDS).filter(function (c) { return c.indexOf(parts[0]) === 0; });
+      }
+      var word = parts[parts.length - 1];
+      var names = currentDir()
+        ? dirPosts(currentDir()).map(function (p) { return p.slug + "/"; })
+        : Object.keys(DIRS).map(function (d) { return d + "/"; }).concat(Object.keys(FILES));
+      return names.filter(function (n) { return n.toLowerCase().indexOf(word.toLowerCase()) === 0; })
+        .map(function (n) { return parts.slice(0, -1).concat(n).join(" "); });
+    }
+
+    function buildInput() {
+      inputLine = document.createElement("div");
+      inputLine.className = "sh-line sh-input-line";
+      inputLine.innerHTML = '<span class="sh-p"></span>';
+      input = document.createElement("input");
+      input.className = "sh-input";
+      input.setAttribute("aria-label", "Terminal input — type help");
+      input.setAttribute("autocomplete", "off");
+      input.setAttribute("autocapitalize", "off");
+      input.setAttribute("spellcheck", "false");
+      inputLine.appendChild(input);
+      body.appendChild(inputLine);
+      refreshPrompt();
+
+      input.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          var v = input.value; input.value = "";
+          run(v); refreshPrompt(); scroll();
+        } else if (e.key === "ArrowUp") {
+          if (hIdx > 0) { hIdx--; input.value = history[hIdx]; }
+          e.preventDefault();
+        } else if (e.key === "ArrowDown") {
+          if (hIdx < history.length - 1) { hIdx++; input.value = history[hIdx]; } else { hIdx = history.length; input.value = ""; }
+          e.preventDefault();
+        } else if (e.key === "Tab") {
+          e.preventDefault();
+          var opts = completions(input.value);
+          if (opts.length === 1) input.value = opts[0] + (opts[0].slice(-1) === "/" ? "" : " ");
+          else if (opts.length > 1) { print(promptHTML() + " " + esc(input.value)); print(opts.map(function (o) { return esc(o.split(" ").pop()); }).join("   "), "sh-dim"); }
+        } else if (e.key === "l" && e.ctrlKey) {
+          e.preventDefault(); COMMANDS.clear();
+        } else if (e.key === "c" && e.ctrlKey && !window.getSelection().toString()) {
+          print(promptHTML() + " " + esc(input.value) + "^C"); input.value = "";
+        }
+      });
+    }
+    function refreshPrompt() { inputLine.querySelector(".sh-p").innerHTML = promptHTML(); }
+
+    // clicks: focus input, handle `cd` links inside output
+    body.addEventListener("click", function (e) {
+      var a = e.target.closest && e.target.closest("a.sh-cd");
+      if (a) {
+        e.preventDefault();
+        if (busy) return;
+        var dir = a.textContent.replace(/\/$/, "");
+        run("cd " + dir); run("ls"); refreshPrompt(); return;
+      }
+      if (!busy && input && !window.getSelection().toString() && !(e.target.closest && e.target.closest("a"))) input.focus();
+    });
+
+    // ── boot sequence ──
+    var skip = reduceMotion;
+    function skipAll() { skip = true; }
+    body.addEventListener("click", skipAll, { once: true });
+    document.addEventListener("keydown", skipAll, { once: true });
+
+    async function typeCmd(cmd) {
+      var line = print(promptHTML() + " ");
+      for (var i = 0; i < cmd.length; i++) {
+        line.innerHTML = promptHTML() + " " + esc(cmd.slice(0, i + 1)) + '<span class="cursor"></span>';
+        await sleep(55 + Math.random() * 45);
+      }
+      line.innerHTML = promptHTML() + " " + esc(cmd);
+      await sleep(160);
+    }
+
+    async function boot() {
+      body.innerHTML = "";
+      out = document.createElement("div");
+      body.appendChild(out);
+      var returning = store.get("utopia-booted");
+      if (!returning) {
+        var n = posts.length;
+        var lines = [
+          ["[  0.000000] UtopiaOS 2.6.0-royal (king@utopia) #1 SMP", ""],
+          ["[  0.041337] mounting /kingdom ................", " OK "],
+          ["[  0.083121] loading crown.ko .................", " OK "],
+          ["[  0.120442] starting tabla-daemon ............", " OK "],
+          ["[  0.162001] calibrating tennis racket ........", " OK "],
+          ["[  0.201984] indexing chronicles (" + n + " found) ....", " OK "]
+        ];
+        for (var i = 0; i < lines.length; i++) {
+          print('<span class="sh-dim">' + esc(lines[i][0]) + "</span>" + (lines[i][1] ? ' [<span class="sh-ok">' + lines[i][1] + "</span>]" : ""));
+          await sleep(170);
+        }
+        await sleep(250);
+        store.set("utopia-booted", "1");
+      }
+      printPre(BANNER, "ascii-banner");
+      print('<span class="sh-dim">Last login: ' + esc(new Date().toDateString()) + " from the royal gate</span>");
+      print("");
+      await typeCmd("whoami");
+      COMMANDS.whoami();
+      print("");
+      await typeCmd("ls");
+      listing(null);
+      print("");
+      print('<span class="sh-dim">type </span><span class="sh-ok">help</span><span class="sh-dim"> to explore · click anywhere to type · </span><span class="sh-gold">Tab</span><span class="sh-dim"> completes</span>');
+      busy = false;
+      buildInput();
+      scroll();
+    }
+    boot();
+  }
+
+  // ── Portrait tap (touch devices) ─────────────────────────────
+  function portrait() {
+    var p = document.getElementById("portrait");
+    if (p) p.addEventListener("click", function () { p.classList.toggle("revealed"); });
+  }
+
+  function init() {
+    pagePrompt();
+    reveals();
+    matrixRain();
+    shell();
+    portrait();
+    if (window.console) {
+      console.log("%c♛ UtopiaOS", "color:#f5c542;font:bold 20px monospace");
+      console.log("%cCurious, are we? The source lives at https://github.com/suchith720/suchith720.github.io", "color:#3dff9a;font:12px monospace");
+    }
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -348,7 +865,7 @@ Suchith Prabhu
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/suchith720\.github\.io\/");
+        var filterRegex = new RegExp("https:\/\/suchith720\.github\.io");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -679,31 +1196,19 @@ Suchith Prabhu
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Always hunting for my next life adventure.</p>
+<p><span class="ft-prompt">[root@utopia ~]$</span> echo “Always hunting for my next life adventure.”</p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>
     <div class="nav-footer-right">
-      <ul class="footer-items list-unstyled">
-    <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/suchith720">
-      <i class="bi bi-github" role="img">
-</i> 
-    </a>
-  </li>  
-    <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com/suchith720">
-      <i class="bi bi-twitter" role="img">
-</i> 
-    </a>
-  </li>  
-</ul>
-    </div>
+<p><span class="ft-muted">© Kingdom of Utopia · built with Quarto + caffeine</span></p>
+</div>
   </div>
 </footer>
 
 
 
 
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

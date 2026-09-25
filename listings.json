@@ -7,6 +7,15 @@
     ]
   },
   {
+    "listing": "/index.html",
+    "items": [
+      "/posts/research/scratchGPT/index.html",
+      "/posts/adventure/holi/index.html",
+      "/posts/adventure/pusa-debacle/index.html",
+      "/posts/research/bewakoof-detector/index.html"
+    ]
+  },
+  {
     "listing": "/adventure_blog.html",
     "items": [
       "/posts/adventure/holi/index.html",
