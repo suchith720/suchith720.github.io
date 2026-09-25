@@ -102,7 +102,7 @@ class Svg:
         markers = "".join(
             f'<marker id="a{c[1:]}" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" '
             f'orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="{c}"/></marker>'
-            for c in {G, GD, Y, C, M, V, O, R, MUTED, FG})
+            for c in (G, GD, Y, C, M, V, O, R, MUTED, FG))
         head = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {self.w} {self.h}" '
                 f'width="{self.w}" height="{self.h}" font-family="{FONT}" xml:space="preserve">'
                 f'<defs>{markers}'
@@ -133,6 +133,81 @@ def caption(s, x, y, t):
 
 def name(s, x, y, t, color=Y):
     s.text(x, y, t, size=14, fill=color, weight=700, italic=True)
+
+
+# ─────────────────────────────────────────────────────────────────
+# 0. Bigram model: a lookup table of next-character logits
+# ─────────────────────────────────────────────────────────────────
+def bigram():
+    s = Svg(1000, 500, "bigram.svg")
+    sentence = "We are accounted poor citizens"
+    cur, nxt = 3, 4  # the "a" and "r" of "are"
+    tx0, tw = 170, 22
+    s.text(tx0 - 14, 81, "input ›", size=12, fill=MUTED, anchor="end")
+    for i, ch in enumerate(sentence):
+        x = tx0 + i * tw
+        if ch == " ":
+            s.rect(x, 64, tw - 3, 22, fill=LINE1, rx=3, fop=0.6)
+            continue
+        col, stroke = (C, C) if i == cur else ((Y, Y) if i == nxt else (FG, LINE))
+        s.rect(x, 64, tw - 3, 22, fill=PANEL, stroke=stroke, rx=3, glow=i in (cur, nxt))
+        s.text(x + (tw - 3) / 2, 80, ch, size=13, fill=col, weight=700 if i in (cur, nxt) else 400)
+    ax, rx_ = tx0 + cur * tw + 9.5, tx0 + nxt * tw + 9.5
+    s.text(ax - 4, 108, "current", size=10, fill=C, anchor="end")
+
+    vocab = list("eaorw")
+    # the table
+    tx, ty, cw = 130, 150, 40
+    for j, ch in enumerate(vocab):
+        s.text(tx + j * cw + 20, ty - 8, ch, size=12, fill=Y if ch == "r" else MUTED, weight=700 if ch == "r" else 400)
+        s.text(tx - 16, ty + j * cw + 25, ch, size=12, fill=C if ch == "a" else MUTED, weight=700 if ch == "a" else 400)
+    base = [[.3, .5, .2, .6, .4], [0, 0, 0, 0, 0], [.5, .2, .4, .7, .3], [.6, .4, .2, .3, .5], [.2, .6, .5, .1, .4]]
+    s.grid(tx, ty, 5, 5, cw, cw, lambda r, c: C if r == 1 else G,
+           fop=lambda r, c: 0.45 if r == 1 else 0.05 + 0.18 * base[r][c])
+    s.rect(tx, ty + cw, 5 * cw, cw, stroke=C, sw=2, glow=True)
+    s.text(tx + 100, ty + 226, "token_embedding_table", size=12, fill=G, weight=700)
+    s.text(tx + 100, ty + 243, "(vocab × vocab)", size=11, fill=MUTED)
+    # lookup: current char -> its row
+    s.path(f"M{ax},90 L{ax},118 L96,118 L96,{ty + cw + 20} L{tx - 26},{ty + cw + 20}", C, dash="5 4")
+
+    # the row = logits
+    logits = [1.2, -0.3, 0.4, 2.1, -1.0]
+    lx, ly = 430, ty + cw
+    s.line(tx + 5 * cw + 8, ly + 20, lx - 10, ly + 20, C)
+    s.text((tx + 5 * cw + lx) / 2, ly + 8, "row 'a'", size=11, fill=C)
+    for j, ch in enumerate(vocab):
+        s.text(lx + j * cw + 20, ly - 8, ch, size=12, fill=Y if ch == "r" else MUTED, weight=700 if ch == "r" else 400)
+    s.grid(lx, ly, 1, 5, cw, cw, lambda r, c: Y if c == 3 else C,
+           fop=lambda r, c: 0.12 + 0.12 * (logits[c] + 1.0), text=lambda r, c: f"{logits[c]:+.1f}", tsize=10)
+    s.text(lx + 100, ly + 62, "logits", size=12, fill=C, weight=700)
+    s.text(lx + 100, ly + 78, "unnormalised log-probs", size=10, fill=MUTED)
+
+    # softmax -> probabilities
+    ex = [math.exp(v) for v in logits]
+    probs = [e / sum(ex) for e in ex]
+    s.line(lx + 5 * cw + 8, ly + 20, 700, ly + 20, G)
+    s.text(670, ly + 8, "softmax", size=11, fill=G)
+    bx, basey, bw = 712, 350, 36
+    s.text(bx, 150, "p( next char | 'a' )", size=12, fill=FG, anchor="start")
+    s.line(bx - 8, basey, bx + 5 * 48, basey, LINE, arrow=False)
+    for j, (ch, p) in enumerate(zip(vocab, probs)):
+        x = bx + j * 48
+        h = p * 250
+        col = Y if ch == "r" else C
+        s.rect(x, basey - h, bw, h, fill=col, stroke=col, fop=0.6 if ch == "r" else 0.22, sop=0.9, glow=ch == "r")
+        s.text(x + bw / 2, basey - h - 6, f"{p:.2f}".lstrip("0"), size=9, fill=col)
+        s.text(x + bw / 2, basey + 18, ch, size=12, fill=col if ch == "r" else MUTED, weight=700 if ch == "r" else 400)
+    # target: the actual next char
+    rbar = bx + 3 * 48 + bw / 2
+    s.path(f"M{rx_},90 L{rx_},104 L{rbar},104 L{rbar},{basey - probs[3] * 250 - 22}", Y, dash="5 4")
+    s.text(rx_ + 8, 100, "target", size=10, fill=Y, anchor="start")
+
+    loss = -math.log(probs[3])
+    s.text(500, 432, f"loss = −log p( 'r' | 'a' ) = −log {probs[3]:.2f} ≈ {loss:.2f}", size=15,
+           fill=Y, weight=700, glow=True)
+    s.text(500, 462, "the bigram model predicts the next character from the current one alone",
+           size=12, fill=MUTED)
+    s.render()
 
 
 # ─────────────────────────────────────────────────────────────────
@@ -539,6 +614,7 @@ def thumbnail():
 
 
 if __name__ == "__main__":
+    bigram()
     masked_attention()
     multi_head()
     feedforward()
