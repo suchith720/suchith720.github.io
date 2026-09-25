@@ -1,66 +1,58 @@
 project:
   type: website
+  resources:
+    - data/suchith_prabhu_cv.pdf
 
 website:
-  favicon: data/images/logo.jpg
-  title: "Utopia"
+  title: "root@utopia"
+  description: "The kingdom of Utopia — stories, research and adventures of Suchith Prabhu, PhD scholar in extreme classification."
+  site-url: https://suchith720.github.io
+  favicon: assets/favicon.svg
+  open-graph: true
+  twitter-card:
+    creator: "@suchith720"
+  page-navigation: true
+  search:
+    location: navbar
+    type: overlay
   navbar:
+    background: "#07090a"
     left:
       - href: index.qmd
-        text: Home
+        text: "~/home"
       - href: about.qmd
-        text: About
+        text: "~/king"
+      - href: research_blog.qmd
+        text: "~/workshop"
+      - href: adventure_blog.qmd
+        text: "~/expeditions"
       - href: data/suchith_prabhu_cv.pdf
-        text: "Curriculum Vitae"
-      - sidebar:blogs
-
-  sidebar:
-    - title: "Navbar"
-      style: "docked"
-      background: dark
-      contents:
-        - section: "Suchith Prabhu"
-          contents:
-            - href: index.qmd
-              text: Home
-            - href: about.qmd
-              text: About
-            - href: data/suchith_prabhu_cv.pdf
-              text: "Curriculum Vitae"
-            - section : Blogs
-              contents:
-                - href: research_blog.qmd
-                  text: Research
-                - href: adventure_blog.qmd
-                  text: Adventure
-
-    - id: blogs
-      title: "Blogs"
-      style: "docked"
-      background: light
-      collapse-level: 2
-      contents:
-        - href: research_blog.qmd
-          text: Research
-        - href: adventure_blog.qmd
-          text: Adventure
-
-  page-footer:
-    left: "Always hunting for my next life adventure."
+        text: "cv.pdf"
     right:
       - icon: github
         href: https://github.com/suchith720
-      - icon: twitter
+        aria-label: GitHub
+      - icon: twitter-x
         href: https://twitter.com/suchith720
+        aria-label: Twitter / X
+
+  page-footer:
+    left: |
+      <span class="ft-prompt">[root@utopia ~]$</span> echo "Always hunting for my next life adventure."
+    right: |
+      <span class="ft-muted">© Kingdom of Utopia · built with Quarto + caffeine</span>
 
 format:
   html:
-    theme: 
-      - solar
-      - custom.css
-    css: styles.css
+    theme:
+      - darkly
+      - assets/utopia.scss
+    highlight-style: monokai
     toc: true
+    toc-title: "// contents"
     bread-crumbs: false
-
-
-
+    smooth-scroll: true
+    code-copy: true
+    anchor-sections: true
+    include-in-header: _includes/head.html
+    include-after-body: _includes/utopia.html

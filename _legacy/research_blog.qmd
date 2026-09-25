@@ -1,0 +1,16 @@
+---
+title: "The Alchemist's Workshop"
+subtitle: "Crafting Ideas into Reality"
+listing:
+  contents: posts/research
+  sort: "date desc"
+  type: default
+  categories: false
+  sort-ui: false
+  filter-ui: false
+page-layout: full
+title-block-banner: true
+sidebar: false
+---
+
+

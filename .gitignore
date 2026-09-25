@@ -3,3 +3,7 @@
 README.md
 
 **/*.quarto_ipynb
+.DS_Store
+.ipynb_checkpoints/
+/_freeze/
+/.claude/

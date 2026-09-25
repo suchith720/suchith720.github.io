@@ -1,54 +1,108 @@
 ---
-title: "Suchith Prabhu"
-
-format:
-  html:
-    page-layout: full
-    toc: false
-
-about:
-  template: trestles
-  id: hero-heading
-  image-shape: round
-  image: data/images/profile.jpg
-  links:
-    - icon: twitter
-      text: twitter
-      href: https://twitter.com/suchith720
-    - icon: github
-      text: Github
-      href: https://github.com/suchith720
+title: "The King"
+subtitle: "Dossier of Suchith Prabhu: ruler of Utopia, researcher by trade"
+description: "Suchith Prabhu — Ph.D. scholar at the School of AI, IIT Delhi, working on extreme classification."
+image: data/images/profile.jpg
+page-layout: full
+toc: false
+body-classes: page-wide
 ---
 
-::: {#hero-heading}
+::::: {.about-grid}
 
-I am a 5th-year Ph.D. scholar under the supervision of [Dr. Manik Varma](http://manikvarma.org/) and [Dr. Sumeet Agarwal](https://web.iitd.ac.in/~sumeet/) at School of AI, IIT Delhi. My research domain is [Extreme Classification](http://manikvarma.org/downloads/XC/XMLRepository.html), simply put classification on steroids.
+:::: {.idcard-col}
+```{=html}
+<aside class="term idcard">
+  <div class="term-bar">
+    <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+    <span class="term-title">id --card</span>
+  </div>
+  <div class="idcard-img"><img src="data/images/profile.jpg" alt="Suchith Prabhu" class="no-frame"></div>
+  <div class="idcard-body">
+    <div class="idcard-name">Suchith Prabhu</div>
+    <div class="idcard-role">&gt; King of Utopia · uid 0</div>
+    <div class="kv">
+      <span class="k">role</span><span class="v">Ph.D. scholar</span>
+      <span class="k">lab</span><span class="v">School of AI, IIT Delhi</span>
+      <span class="k">field</span><span class="v">Extreme Classification</span>
+      <span class="k">advisors</span><span class="v">Manik Varma, Sumeet Agarwal</span>
+      <span class="k">loves</span><span class="v">tennis · tabla · painting</span>
+    </div>
+    <div class="idcard-links">
+      <a href="https://github.com/suchith720">github ↗</a>
+      <a href="https://twitter.com/suchith720">twitter ↗</a>
+      <a href="data/suchith_prabhu_cv.pdf">cv.pdf ↓</a>
+    </div>
+  </div>
+</aside>
+```
+::::
 
-Tennis is my first love—yes, an engineer’s life—and someday I hope to play in professional tournaments. I would also love to grow as a musician, but given the current demands of Ph.D. life, that feels like a far-fetched dream—for now.
+:::: {.about-main}
 
+I am a 5th-year Ph.D. scholar under the supervision of [Dr. Manik Varma](http://manikvarma.org/) and [Dr. Sumeet Agarwal](https://web.iitd.ac.in/~sumeet/) at the School of AI, IIT Delhi. My research domain is [Extreme Classification](http://manikvarma.org/downloads/XC/XMLRepository.html). Simply put, it's classification on steroids.
 
-## Education
+Tennis is my first love (yes, an engineer's life), and someday I hope to play in professional tournaments. I would also love to grow as a musician, but with the demands of Ph.D. life, that feels like a far-fetched dream. For now.
 
-[Indian Institute of Technology Delhi](https://home.iitd.ac.in/) | New Delhi, India <br>
-PhD in Artificial Intelligence | Aug 2021 - June 2026
+## git log --graph
 
-[National Institute of Technology Goa](https://www.nitgoa.ac.in/) | Goa, India <br>
-B.Tech in Computer Science | Aug 2015 - May 2019
+```{=html}
+<div class="gitlog">
+  <div class="commit head">
+    <div><span class="hash">a1c0de</span> <span class="ref">(<span class="h">HEAD → main</span>)</span> <span class="when">· 2025</span></div>
+    <div class="msg">MOGIC accepted at ICML 2025</div>
+    <div class="sub">Metadata-infused Oracle Guidance for Improved Extreme Classification · Vancouver, Canada</div>
+  </div>
+  <div class="commit">
+    <div><span class="hash">7e57ed</span> <span class="when">· 2025</span></div>
+    <div class="msg">Graph Regularized Encoder Training at WWW '25 Companion</div>
+    <div class="sub">Companion Proceedings of the ACM Web Conference 2025 · Sydney, Australia</div>
+  </div>
+  <div class="commit">
+    <div><span class="hash">b0071e</span> <span class="ref">(<span class="h">branch: phd</span>)</span> <span class="when">· Aug 2021 – June 2026</span></div>
+    <div class="msg">PhD in Artificial Intelligence, <a href="https://home.iitd.ac.in/">Indian Institute of Technology Delhi</a></div>
+    <div class="sub">New Delhi, India · School of AI</div>
+  </div>
+  <div class="commit">
+    <div><span class="hash">c0ffee</span> <span class="when">· July 2019 – July 2021</span></div>
+    <div class="msg">Software Developer, <a href="https://www.vehant.com/">Vehant Technologies</a></div>
+    <div class="sub">first job: shipping real software</div>
+  </div>
+  <div class="commit">
+    <div><span class="hash">5eed01</span> <span class="ref">(<span class="h">init</span>)</span> <span class="when">· Aug 2015 – May 2019</span></div>
+    <div class="msg">B.Tech in Computer Science, <a href="https://www.nitgoa.ac.in/">National Institute of Technology Goa</a></div>
+    <div class="sub">Goa, India</div>
+  </div>
+</div>
+```
 
-:::
+## publications
 
-## Publications {style="margin-top: 60px;"}
+```{=html}
+<ol class="pubs">
+  <li class="pub">
+    <a class="pub-title" href="https://openreview.net/forum?id=uxA0GI240s">MOGIC: Metadata-infused Oracle Guidance for Improved Extreme Classification</a>
+    <div class="pub-authors"><span class="me">Suchith Chidananda Prabhu</span>, Bhavyajeet Singh, Anshul Mittal, Siddarth Asokan, Shikhar Mohan, Deepak Saini, Yashoteja Prabhu, Lakshya Kumar, Jian Jiao, Amit S, Niket Tandon, Manish Gupta, Sumeet Agarwal, Manik Varma.</div>
+    <div class="pub-venue"><span class="venue">ICML 2025 · Forty-second International Conference on Machine Learning</span><span class="place">Vancouver, Canada</span></div>
+  </li>
+  <li class="pub">
+    <a class="pub-title" href="https://doi.org/10.1145/3701716.3715230">Graph Regularized Encoder Training for Extreme Classification</a>
+    <div class="pub-authors">Anshul Mittal, Shikhar Mohan, Deepak Saini, Siddarth Asokan, <span class="me">Suchith Chidananda Prabhu</span>, Lakshya Kumar, Pankaj Malhotra, Jian Jiao, Amit Singh, Sumeet Agarwal, Soumen Chakrabarti, Purushottam Kar, Manik Varma.</div>
+    <div class="pub-venue"><span class="venue">WWW '25 Companion · ACM Web Conference 2025</span><span class="place">Sydney, Australia</span></div>
+  </li>
+</ol>
+```
 
-1. [**Graph Regularized Encoder Training for Extreme Classification**](https://doi.org/10.1145/3701716.3715230)<br>
-   Anshul Mittal, Shikhar Mohan, Deepak Saini, Siddarth Asokan, **Suchith Chidananda Prabhu**, Lakshya Kumar, Pankaj Malhotra, Jian Jiao, Amit Singh, Sumeet Agarwal, Soumen Chakrabarti, Purushottam Kar, Manik Varma.<br>
-   [*Companion Proceedings of the ACM on Web Conference 2025*]{.badge .bg-primary} &nbsp; [Sydney, Australia]{.badge .bg-secondary}
+## beyond the lab
 
-2. [**MOGIC: Metadata-infused Oracle Guidance for Improved Extreme Classification**](https://openreview.net/forum?id=uxA0GI240s)<br>
-   **Suchith Chidananda Prabhu**, Bhavyajeet Singh, Anshul Mittal, Siddarth Asokan, Shikhar Mohan, Deepak Saini, Yashoteja Prabhu, Lakshya Kumar, Jian Jiao, Amit S, Niket Tandon, Manish Gupta, Sumeet Agarwal, Manik Varma.<br>
-   [*Forty-second International Conference on Machine Learning 2025*]{.badge .bg-primary} &nbsp; [Vancouver, Canada]{.badge .bg-secondary}
+```{=html}
+<div class="interests">
+  <div><b>🎾 tennis</b>first love; the pro-tournament dream is still alive.</div>
+  <div><b>🪘 tabla</b>an art form close to my heart. dha dhin dhin dha.</div>
+  <div><b>🎨 painting</b>brushes, colors and the occasional royal portrait.</div>
+</div>
+```
 
+::::
 
-## Experience
-
-[Vehant Technologies](https://www.vehant.com/) | Software Developer | July 2019 - July 2021
-
+:::::

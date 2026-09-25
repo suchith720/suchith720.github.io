@@ -1,0 +1,66 @@
+project:
+  type: website
+
+website:
+  favicon: data/images/logo.jpg
+  title: "Utopia"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: about.qmd
+        text: About
+      - href: data/suchith_prabhu_cv.pdf
+        text: "Curriculum Vitae"
+      - sidebar:blogs
+
+  sidebar:
+    - title: "Navbar"
+      style: "docked"
+      background: dark
+      contents:
+        - section: "Suchith Prabhu"
+          contents:
+            - href: index.qmd
+              text: Home
+            - href: about.qmd
+              text: About
+            - href: data/suchith_prabhu_cv.pdf
+              text: "Curriculum Vitae"
+            - section : Blogs
+              contents:
+                - href: research_blog.qmd
+                  text: Research
+                - href: adventure_blog.qmd
+                  text: Adventure
+
+    - id: blogs
+      title: "Blogs"
+      style: "docked"
+      background: light
+      collapse-level: 2
+      contents:
+        - href: research_blog.qmd
+          text: Research
+        - href: adventure_blog.qmd
+          text: Adventure
+
+  page-footer:
+    left: "Always hunting for my next life adventure."
+    right:
+      - icon: github
+        href: https://github.com/suchith720
+      - icon: twitter
+        href: https://twitter.com/suchith720
+
+format:
+  html:
+    theme: 
+      - solar
+      - custom.css
+    css: styles.css
+    toc: true
+    bread-crumbs: false
+
+
+

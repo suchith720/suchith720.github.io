@@ -1,0 +1,15 @@
+---
+title: "Roaming Beyond Borders"
+subtitle: "Adventures of My Life"
+listing:
+  contents: posts/adventure
+  sort: "date desc"
+  type: default
+  categories: false
+  sort-ui: false
+  filter-ui: false
+page-layout: full
+title-block-banner: true
+sidebar: false
+---
+

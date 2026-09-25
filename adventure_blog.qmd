@@ -1,15 +1,13 @@
 ---
 title: "Roaming Beyond Borders"
-subtitle: "Adventures of My Life"
+subtitle: "Adventures of my life: journeys, festivals and glorious misadventures."
 listing:
   contents: posts/adventure
   sort: "date desc"
-  type: default
+  date-format: "YYYY-MM-DD"
+  template: _includes/listing-ls.ejs
   categories: false
   sort-ui: false
   filter-ui: false
-page-layout: full
-title-block-banner: true
-sidebar: false
+toc: false
 ---
-

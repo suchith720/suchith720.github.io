@@ -1,0 +1,30 @@
+```{=html}
+<div class="listing-ls">
+  <div class="ls-total">total <%= items.length %></div>
+<% for (const item of items) {
+     const parts = (item.path || '').split('/').filter(Boolean);
+     const slug = parts.length > 1 ? parts[parts.length - 2] : (item.title || 'untitled');
+     const realm = (item.path || '').includes('research') ? 'workshop' : ((item.path || '').includes('adventure') ? 'expedition' : '');
+%>
+  <a class="ls-item reveal" href="<%- item.path %>" <%= metadataAttrs(item) %>
+     data-post data-title="<%= item.title %>" data-realm="<%= realm %>" data-slug="<%= slug %>">
+    <div class="ls-thumb">
+      <% if (item.image) { %>
+        <img src="<%- item.image %>" alt="<%= item.title %>" loading="lazy">
+      <% } else { %>
+        <div class="ls-noimg">▚</div>
+      <% } %>
+    </div>
+    <div class="ls-body">
+      <div class="ls-meta">
+        <span class="perm">-rw-r--r--</span> <span class="own">king</span> <span class="date"><%= item.date || '----------' %></span> <%= slug %>/<% if (item['reading-time']) { %> <span class="rt">· <%= item['reading-time'] %></span><% } %>
+        <% if (realm) { %><span class="ls-tag"><%= realm %></span><% } %>
+      </div>
+      <div class="ls-title"><%= item.title %></div>
+      <% if (item.description) { %><p class="ls-desc"><%= item.description %></p><% } %>
+      <span class="ls-read">$ cat <%= slug %> →</span>
+    </div>
+  </a>
+<% } %>
+</div>
+```
