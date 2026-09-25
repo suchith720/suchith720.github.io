@@ -382,19 +382,15 @@ speak this in hunger for bread, not in thirst for revenge.
 <section id="bigram-language-model" class="level2">
 <h2 class="anchored" data-anchor-id="bigram-language-model">Bigram Language Model</h2>
 <p>We construct an embedding for each character in the vocabulary with the same dimension as the size of the vocabulary. Each entry denotes the unnormalized log-probabilities of the next character given the current character. We model this such that we minimize the cross-entropy loss to learn this probability distribution. The diagram below provides a better explanation of this process.</p>
-<div id="cell-fig-bigram" class="cell" data-execution_count="25">
-<div class="cell-output cell-output-display">
 <div id="fig-bigram" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-bigram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="index_files/figure-html/fig-bigram-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Bigram Model"><img src="index_files/figure-html/fig-bigram-output-1.png" class="img-fluid figure-img"></a>
+<a href="images/bigram.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Bigram Model"><img src="images/bigram.svg" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bigram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Bigram Model
 </figcaption>
 </figure>
-</div>
-</div>
 </div>
 <p>Code for the Bigram language model.</p>
 <div id="a08ee4a5-33aa-497c-a3f8-cf47bad820f2" class="cell" data-execution_count="13">
