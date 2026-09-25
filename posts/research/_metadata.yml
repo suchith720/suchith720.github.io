@@ -6,3 +6,4 @@ freeze: false
 
 title-block-banner: false
 author: "Suchith Prabhu"
+lightbox: auto
