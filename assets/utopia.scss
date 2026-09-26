@@ -810,6 +810,28 @@ pre { font-size: .84rem; line-height: 1.6; }
     .cap { border-color: $u-green-dim; }
   }
 }
+// a text tile that sits in a collage row like a photo
+.collage-note {
+  flex: var(--a) 1 0;
+  aspect-ratio: var(--a);
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: .55rem;
+  padding: 1.2rem 1.4rem;
+  border: 1px dashed $u-line-2;
+  border-radius: 8px;
+  background: rgba(12, 16, 17, .85);
+  font-size: .9rem;
+  line-height: 1.5;
+  color: $u-muted;
+  .ln { display: block; }
+  .t { color: $u-gold; }
+  .ok { color: $u-green; }
+  .hl { color: $u-fg; }
+}
+
 // GLightbox caption bar, themed (selectors outrank the CDN stylesheet)
 body .glightbox-clean .gslide-description { background: $u-bg-2; border-top: 1px solid $u-line-2; }
 body .glightbox-clean .gdesc-inner { padding: .6rem 1rem; }
@@ -818,12 +840,14 @@ body .goverlay { background: rgba(7, 9, 10, .94); }
 
 // phones: one continuous two-column grid; landscape shots span both columns
 @media (max-width: 700px) {
-  .collage { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .collage { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; grid-auto-flow: row dense; }
   .collage-row { display: contents; }
   .collage-item {
     aspect-ratio: 3 / 4;
     &.wide { grid-column: 1 / -1; aspect-ratio: 4 / 3; }
   }
+  .collage-item.solo-m { grid-column: 1 / -1; aspect-ratio: 4 / 5; }  // odd portrait out
+  .collage-note { aspect-ratio: auto; padding: .8rem .85rem; font-size: .72rem; gap: .35rem; }
 }
 
 // ── 404 ──────────────────────────────────────────────────────────
