@@ -10,6 +10,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/adventure/louvre-abu-dhabi/index.html",
       "/posts/research/mogic/index.html",
       "/posts/research/scratchGPT/index.html",
       "/posts/adventure/holi/index.html",
@@ -20,6 +21,7 @@
   {
     "listing": "/adventure_blog.html",
     "items": [
+      "/posts/adventure/louvre-abu-dhabi/index.html",
       "/posts/adventure/holi/index.html",
       "/posts/adventure/pusa-debacle/index.html"
     ]
