@@ -2,6 +2,7 @@
   {
     "listing": "/research_blog.html",
     "items": [
+      "/posts/research/mogic/index.html",
       "/posts/research/scratchGPT/index.html",
       "/posts/research/bewakoof-detector/index.html"
     ]
@@ -9,6 +10,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/research/mogic/index.html",
       "/posts/research/scratchGPT/index.html",
       "/posts/adventure/holi/index.html",
       "/posts/adventure/pusa-debacle/index.html",
