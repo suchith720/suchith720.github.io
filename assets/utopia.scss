@@ -878,6 +878,7 @@ body .goverlay { background: rgba(7, 9, 10, .94); }
     &.wide { grid-column: 1 / -1; aspect-ratio: 4 / 3; }
   }
   .collage-item.solo-m { grid-column: 1 / -1; aspect-ratio: 4 / 5; }  // odd portrait out
+  .collage-note.solo-m { grid-column: 1 / -1; }  // a note with no partner
   .collage-note { aspect-ratio: auto; padding: .8rem .85rem; font-size: .72rem; gap: .35rem; }
 }
 
