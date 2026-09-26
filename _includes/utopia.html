@@ -494,7 +494,26 @@
     if (p) p.addEventListener("click", function () { p.classList.toggle("revealed"); });
   }
 
+  // ── Photo collages: click to enlarge ─────────────────────────
+  // Quarto only bundles its lightbox for markdown images, so collages
+  // (raw HTML) load GLightbox themselves.
+  function collages() {
+    if (!document.querySelector(".collage-item")) return;
+    var base = "https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/";
+    var css = document.createElement("link");
+    css.rel = "stylesheet";
+    css.href = base + "css/glightbox.min.css";
+    document.head.appendChild(css);
+    var js = document.createElement("script");
+    js.src = base + "js/glightbox.min.js";
+    js.onload = function () {
+      window.GLightbox({ selector: ".collage-item", loop: true, touchNavigation: true });
+    };
+    document.body.appendChild(js);
+  }
+
   function init() {
+    collages();
     pagePrompt();
     reveals();
     matrixRain();

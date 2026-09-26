@@ -11,38 +11,64 @@ Pusa in Delhi is a really beautiful place, with vast farm lands in the midst of 
 
 Unfortunately, our first attempt to visit Pusa was unsuccessful as the G20 summit was being held on the same day. But we didn't give up, and embarked on the 30 km journey again. However, this trip turned out to be a nightmare, with an unexpected heartbreak. It's ironic that such a beautiful place could also be the setting of a difficult experience. But that's life, right? We have to keep striving and look forward to another trip to make up for the sour experience.
 
-::: {layout-ncol=2}
-![My wonder bag](../images/pusa-debacle/IMG_20230305_050428.jpg){width="30%"}
-
-![Suchith](../images/pusa-debacle/IMG_20230305_050628.jpg){width="30%"}
+::: {.column-page}
+```{=html}
+<div class="collage-head"><span class="u-gold">$</span> ls ~/expeditions/pusa-debacle/photos  <span class="u-muted"># 2023-03-05 · 12 frames · click to enlarge</span></div>
+<div class="collage">
+  <div class="collage-row">
+    <a class="collage-item" style="--a:0.7500" href="../images/pusa-debacle/web/IMG_20230305_050428.jpg" data-gallery="pusa" data-glightbox="description: 05:04 · My wonder bag">
+      <img src="../images/pusa-debacle/web/IMG_20230305_050428.jpg" alt="My wonder bag" loading="lazy" width="1200" height="1600">
+      <span class="cap"><span class="t">05:04</span> · My wonder bag</span>
+    </a>
+    <a class="collage-item" style="--a:0.7500" href="../images/pusa-debacle/web/IMG_20230305_050628.jpg" data-gallery="pusa" data-glightbox="description: 05:06 · Suchith">
+      <img src="../images/pusa-debacle/web/IMG_20230305_050628.jpg" alt="Suchith" loading="lazy" width="1200" height="1600">
+      <span class="cap"><span class="t">05:06</span> · Suchith</span>
+    </a>
+    <a class="collage-item wide" style="--a:1.3333" href="../images/pusa-debacle/web/IMG_20230305_064357.jpg" data-gallery="pusa" data-glightbox="description: 06:43 · Carrot">
+      <img src="../images/pusa-debacle/web/IMG_20230305_064357.jpg" alt="Carrot" loading="lazy" width="1600" height="1200">
+      <span class="cap"><span class="t">06:43</span> · Carrot</span>
+    </a>
+  </div>
+  <div class="collage-row">
+    <a class="collage-item" style="--a:0.7500" href="../images/pusa-debacle/web/IMG_20230305_064711.jpg" data-gallery="pusa" data-glightbox="description: 06:47 · Pink Dahlia">
+      <img src="../images/pusa-debacle/web/IMG_20230305_064711.jpg" alt="Pink Dahlia" loading="lazy" width="1200" height="1600">
+      <span class="cap"><span class="t">06:47</span> · Pink Dahlia</span>
+    </a>
+    <a class="collage-item" style="--a:0.7500" href="../images/pusa-debacle/web/IMG_20230305_064808.jpg" data-gallery="pusa" data-glightbox="description: 06:48 · Dahlias">
+      <img src="../images/pusa-debacle/web/IMG_20230305_064808.jpg" alt="Dahlias" loading="lazy" width="1200" height="1600">
+      <span class="cap"><span class="t">06:48</span> · Dahlias</span>
+    </a>
+    <a class="collage-item" style="--a:0.7500" href="../images/pusa-debacle/web/IMG_20230305_064824.jpg" data-gallery="pusa" data-glightbox="description: 06:48 · White Dahlia">
+      <img src="../images/pusa-debacle/web/IMG_20230305_064824.jpg" alt="White Dahlia" loading="lazy" width="1200" height="1600">
+      <span class="cap"><span class="t">06:48</span> · White Dahlia</span>
+    </a>
+    <a class="collage-item" style="--a:0.7500" href="../images/pusa-debacle/web/IMG_20230305_065050.jpg" data-gallery="pusa" data-glightbox="description: 06:50 · Cauliflower">
+      <img src="../images/pusa-debacle/web/IMG_20230305_065050.jpg" alt="Cauliflower" loading="lazy" width="1200" height="1600">
+      <span class="cap"><span class="t">06:50</span> · Cauliflower</span>
+    </a>
+    <a class="collage-item" style="--a:0.7500" href="../images/pusa-debacle/web/IMG_20230305_065053.jpg" data-gallery="pusa" data-glightbox="description: 06:50 · Onion">
+      <img src="../images/pusa-debacle/web/IMG_20230305_065053.jpg" alt="Onion" loading="lazy" width="1200" height="1600">
+      <span class="cap"><span class="t">06:50</span> · Onion</span>
+    </a>
+  </div>
+  <div class="collage-row">
+    <a class="collage-item" style="--a:0.7500" href="../images/pusa-debacle/web/IMG_20230305_074415.jpg" data-gallery="pusa" data-glightbox="description: 07:44 · Pusa road">
+      <img src="../images/pusa-debacle/web/IMG_20230305_074415.jpg" alt="Pusa road" loading="lazy" width="1200" height="1600">
+      <span class="cap"><span class="t">07:44</span> · Pusa road</span>
+    </a>
+    <a class="collage-item" style="--a:0.7500" href="../images/pusa-debacle/web/IMG_20230305_080338.jpg" data-gallery="pusa" data-glightbox="description: 08:03 · Durga temple">
+      <img src="../images/pusa-debacle/web/IMG_20230305_080338.jpg" alt="Durga temple" loading="lazy" width="1200" height="1600">
+      <span class="cap"><span class="t">08:03</span> · Durga temple</span>
+    </a>
+    <a class="collage-item" style="--a:0.7500" href="../images/pusa-debacle/web/IMG_20230305_080343.jpg" data-gallery="pusa" data-glightbox="description: 08:03 · Durga temple">
+      <img src="../images/pusa-debacle/web/IMG_20230305_080343.jpg" alt="Durga temple" loading="lazy" width="1200" height="1600">
+      <span class="cap"><span class="t">08:03</span> · Durga temple</span>
+    </a>
+    <a class="collage-item wide" style="--a:1.3333" href="../images/pusa-debacle/web/IMG_20230305_085054.jpg" data-gallery="pusa" data-glightbox="description: 08:51 · Back to IIT">
+      <img src="../images/pusa-debacle/web/IMG_20230305_085054.jpg" alt="Back to IIT" loading="lazy" width="1600" height="1200">
+      <span class="cap"><span class="t">08:51</span> · Back to IIT</span>
+    </a>
+  </div>
+</div>
+```
 :::
-
-
-::: {layout-ncol=3}
-![Pink Dahlia](../images/pusa-debacle/IMG_20230305_064711.jpg)
-
-![White Dahlia](../images/pusa-debacle/IMG_20230305_064824.jpg)
-
-![Dahlias](../images/pusa-debacle/IMG_20230305_064808.jpg)
-:::
-
-
-![Carrot](../images/pusa-debacle/IMG_20230305_064357.jpg)
-
-
-::: {layout-ncol=2}
-
-![Cauliflower](../images/pusa-debacle/IMG_20230305_065050.jpg)
-
-![Onion](../images/pusa-debacle/IMG_20230305_065053.jpg)
-:::
-
-::: {layout-ncol=3}
-![Pusa road](../images/pusa-debacle/IMG_20230305_074415.jpg)
-
-![Durga temple](../images/pusa-debacle/IMG_20230305_080338.jpg)
-
-![Durga temple](../images/pusa-debacle/IMG_20230305_080343.jpg)
-:::
-
-![Back to IIT](../images/pusa-debacle/IMG_20230305_085054.jpg)
