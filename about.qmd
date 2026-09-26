@@ -84,6 +84,7 @@ Tennis is my first love (yes, an engineer's life), and someday I hope to play in
     <a class="pub-title" href="https://openreview.net/forum?id=uxA0GI240s">MOGIC: Metadata-infused Oracle Guidance for Improved Extreme Classification</a>
     <div class="pub-authors"><span class="me">Suchith Chidananda Prabhu</span>, Bhavyajeet Singh, Anshul Mittal, Siddarth Asokan, Shikhar Mohan, Deepak Saini, Yashoteja Prabhu, Lakshya Kumar, Jian Jiao, Amit S, Niket Tandon, Manish Gupta, Sumeet Agarwal, Manik Varma.</div>
     <div class="pub-venue"><span class="venue">ICML 2025 · Forty-second International Conference on Machine Learning</span><span class="place">Vancouver, Canada</span></div>
+    <a class="pub-blog" href="posts/research/mogic/index.html">$ cat blog-post →</a>
   </li>
   <li class="pub">
     <a class="pub-title" href="https://doi.org/10.1145/3701716.3715230">Graph Regularized Encoder Training for Extreme Classification</a>
