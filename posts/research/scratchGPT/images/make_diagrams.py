@@ -9,6 +9,7 @@ import math
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+POST = "scratchGPT"  # shown in each diagram's title bar
 
 # ── palette (matches assets/utopia.scss) ──────────────────────────
 BG, PANEL, LINE1, LINE = "#0c1011", "#121819", "#1d2729", "#2a3739"
@@ -120,7 +121,7 @@ class Svg:
                    f'<circle cx="20" cy="17" r="5.5" fill="{R}"/><circle cx="38" cy="17" r="5.5" fill="#ffbd2e"/>'
                    f'<circle cx="56" cy="17" r="5.5" fill="#27c93f"/>'
                    f'<text x="{self.w / 2}" y="21.5" font-size="12" fill="{MUTED}" text-anchor="middle">'
-                   f'~/workshop/scratchGPT/{esc(self.filename)}</text>')
+                   f'~/workshop/{POST}/{esc(self.filename)}</text>')
         svg = head + bar + "".join(self.els) + "</svg>\n"
         with open(os.path.join(HERE, self.filename), "w") as f:
             f.write(svg)

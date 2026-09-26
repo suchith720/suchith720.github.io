@@ -833,6 +833,36 @@ pre { font-size: .84rem; line-height: 1.6; }
   .hl { color: $u-fg; }
 }
 
+// model predictions shown as a diff (post content)
+.pred-diff {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .8rem;
+  margin: 1.2rem 0 1.6rem;
+  font-size: .8rem;
+  @media (max-width: 600px) { grid-template-columns: 1fr; }
+  .pd-col {
+    border: 1px solid $u-line-2;
+    border-radius: 8px;
+    background: rgba(12, 16, 17, .8);
+    overflow: hidden;
+  }
+  .pd-head {
+    padding: .45rem .8rem;
+    border-bottom: 1px solid $u-line;
+    background: $u-bg-3;
+    color: $u-gold;
+    font-weight: 700;
+    .u-muted { font-weight: 400; }
+  }
+  .pd-body { padding: .5rem .8rem .7rem; line-height: 1.8; }
+  .ok { color: $u-green; }
+  .bad { color: $u-red; }
+  .ok::before { content: "+ "; font-weight: 700; }
+  .bad::before { content: "- "; font-weight: 700; }
+  .pd-body span { display: block; }
+}
+
 // GLightbox caption bar, themed (selectors outrank the CDN stylesheet)
 body .glightbox-clean .gslide-description { background: $u-bg-2; border-top: 1px solid $u-line-2; }
 body .glightbox-clean .gdesc-inner { padding: .6rem 1rem; }
