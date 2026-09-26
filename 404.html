@@ -41,7 +41,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="/site_libs/quarto-html/quarto-syntax-highlighting-dark-17213b83223d54587794083afa1a79e4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="/site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="/site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="/site_libs/bootstrap/bootstrap-8d4a732b907ab7286b9f2c3f2945c193.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="/site_libs/bootstrap/bootstrap-e90fc0adc725a23886ab0840d2d17b49.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -686,7 +686,26 @@ ul.task-list li input[type="checkbox"] {
     if (p) p.addEventListener("click", function () { p.classList.toggle("revealed"); });
   }
 
+  // ── Photo collages: click to enlarge ─────────────────────────
+  // Quarto only bundles its lightbox for markdown images, so collages
+  // (raw HTML) load GLightbox themselves.
+  function collages() {
+    if (!document.querySelector(".collage-item")) return;
+    var base = "https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/";
+    var css = document.createElement("link");
+    css.rel = "stylesheet";
+    css.href = base + "css/glightbox.min.css";
+    document.head.appendChild(css);
+    var js = document.createElement("script");
+    js.src = base + "js/glightbox.min.js";
+    js.onload = function () {
+      window.GLightbox({ selector: ".collage-item", loop: true, touchNavigation: true });
+    };
+    document.body.appendChild(js);
+  }
+
   function init() {
+    collages();
     pagePrompt();
     reveals();
     matrixRain();

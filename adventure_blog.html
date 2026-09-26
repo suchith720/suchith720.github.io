@@ -43,7 +43,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-17213b83223d54587794083afa1a79e4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-8d4a732b907ab7286b9f2c3f2945c193.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-e90fc0adc725a23886ab0840d2d17b49.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -257,7 +257,7 @@ window.Quarto = {
     </div>
   </a>
 
-  <a class="ls-item reveal" href="./posts/adventure/pusa-debacle/index.html" data-index="1" data-listing-date-sort="1677960000000" data-listing-file-modified-sort="1765907716117" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="183" data-post="" data-title="Pusa Debacle" data-realm="expedition" data-slug="pusa-debacle">
+  <a class="ls-item reveal" href="./posts/adventure/pusa-debacle/index.html" data-index="1" data-listing-date-sort="1677960000000" data-listing-file-modified-sort="1790447680940" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="675" data-post="" data-title="Pusa Debacle" data-realm="expedition" data-slug="pusa-debacle">
     <div class="ls-thumb">
       
         <img src="./posts/adventure/images/pusa-debacle/thumbnail.jpg" alt="Pusa Debacle" loading="lazy">
@@ -265,7 +265,7 @@ window.Quarto = {
     </div>
     <div class="ls-body">
       <div class="ls-meta">
-        <span class="perm">-rw-r--r--</span> <span class="own">king</span> <span class="date">2023-03-05</span> pusa-debacle/ <span class="rt">· 1 min</span>
+        <span class="perm">-rw-r--r--</span> <span class="own">king</span> <span class="date">2023-03-05</span> pusa-debacle/ <span class="rt">· 4 min</span>
         <span class="ls-tag">expedition</span>
       </div>
       <div class="ls-title">Pusa Debacle</div>
@@ -773,7 +773,26 @@ window.Quarto = {
     if (p) p.addEventListener("click", function () { p.classList.toggle("revealed"); });
   }
 
+  // ── Photo collages: click to enlarge ─────────────────────────
+  // Quarto only bundles its lightbox for markdown images, so collages
+  // (raw HTML) load GLightbox themselves.
+  function collages() {
+    if (!document.querySelector(".collage-item")) return;
+    var base = "https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/";
+    var css = document.createElement("link");
+    css.rel = "stylesheet";
+    css.href = base + "css/glightbox.min.css";
+    document.head.appendChild(css);
+    var js = document.createElement("script");
+    js.src = base + "js/glightbox.min.js";
+    js.onload = function () {
+      window.GLightbox({ selector: ".collage-item", loop: true, touchNavigation: true });
+    };
+    document.body.appendChild(js);
+  }
+
   function init() {
+    collages();
     pagePrompt();
     reveals();
     matrixRain();
