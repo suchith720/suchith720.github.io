@@ -7,3 +7,5 @@ README.md
 .ipynb_checkpoints/
 /_freeze/
 /.claude/
+__pycache__/
+*.pyc
