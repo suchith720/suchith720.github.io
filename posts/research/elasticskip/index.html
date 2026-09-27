@@ -1,2 +1,1325 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"></html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Suchith Prabhu">
+<meta name="dcterms.date" content="2026-09-27">
+<meta name="description" content="Compressing LLM query encoders for dense retrieval: skip the middle, keep the tail, and serve every depth from one base model.">
+
+<title>ElasticSkip: Where You Cut Matters More Than How You Heal the Cut – root@utopia</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-17213b83223d54587794083afa1a79e4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-0b4c3efeb523a874662b1bcc7fac24e5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300..800;1,400&amp;family=VT323&amp;display=swap" rel="stylesheet">
+<meta name="theme-color" content="#07090a">
+
+
+<meta property="og:title" content="ElasticSkip: Where You Cut Matters More Than How You Heal the Cut – root@utopia">
+<meta property="og:description" content="Compressing LLM query encoders for dense retrieval: skip the middle, keep the tail, and serve every depth from one base model.">
+<meta property="og:image" content="https://suchith720.github.io/posts/research/elasticskip/images/thumbnail.png">
+<meta property="og:site_name" content="root@utopia">
+<meta property="og:image:height" content="1000">
+<meta property="og:image:width" content="1600">
+<meta name="twitter:title" content="ElasticSkip: Where You Cut Matters More Than How You Heal the Cut – root@utopia">
+<meta name="twitter:description" content="Compressing LLM query encoders for dense retrieval: skip the middle, keep the tail, and serve every depth from one base model.">
+<meta name="twitter:image" content="https://suchith720.github.io/posts/research/elasticskip/images/thumbnail.png">
+<meta name="twitter:creator" content="@suchith720">
+<meta name="twitter:image-height" content="1000">
+<meta name="twitter:image-width" content="1600">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">root@utopia</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text">~/home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../about.html"> 
+<span class="menu-text">~/king</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../research_blog.html"> 
+<span class="menu-text">~/workshop</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../adventure_blog.html"> 
+<span class="menu-text">~/expeditions</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../data/suchith_prabhu_cv.pdf"> 
+<span class="menu-text">cv.pdf</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/suchith720"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/suchith720"> <i class="bi bi-twitter-x" role="img" aria-label="Twitter / X">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">// contents</h2>
+   
+  <ul>
+  <li><a href="#the-inherited-rule-prune-by-importance" id="toc-the-inherited-rule-prune-by-importance" class="nav-link active" data-scroll-target="#the-inherited-rule-prune-by-importance">The inherited rule: prune by importance</a></li>
+  <li><a href="#the-isolation-experiment" id="toc-the-isolation-experiment" class="nav-link" data-scroll-target="#the-isolation-experiment">The isolation experiment</a></li>
+  <li><a href="#why-the-tail-matters" id="toc-why-the-tail-matters" class="nav-link" data-scroll-target="#why-the-tail-matters">Why the tail matters</a></li>
+  <li><a href="#elasticskip-one-base-every-depth" id="toc-elasticskip-one-base-every-depth" class="nav-link" data-scroll-target="#elasticskip-one-base-every-depth">ElasticSkip: one base, every depth</a></li>
+  <li><a href="#caveats" id="toc-caveats" class="nav-link" data-scroll-target="#caveats">Caveats</a></li>
+  <li><a href="#takeaways" id="toc-takeaways" class="nav-link" data-scroll-target="#takeaways">Takeaways</a></li>
+  <li><a href="#read-more" id="toc-read-more" class="nav-link" data-scroll-target="#read-more">Read more</a></li>
+  <li><a href="#the-poster" id="toc-the-poster" class="nav-link" data-scroll-target="#the-poster">The poster</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">ElasticSkip: Where You Cut Matters More Than How You Heal the Cut</h1>
+</div>
+
+<div>
+  <div class="description">
+    Compressing LLM query encoders for dense retrieval: skip the middle, keep the tail, and serve every depth from one base model.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Suchith Prabhu </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 27, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Every time you search, a large language model turns your query into a vector. The documents were embedded once, offline, and frozen into an index, so the query encoder is the only part that runs on every request. Making retrieval cheaper therefore means making the <strong>query encoder</strong> cheaper, and the bluntest tool for that is to delete whole transformer layers.</p>
+<p>That raises a deceptively simple question: <strong>which layers should you delete?</strong> Our paper, <em>Where to Cut? Contiguous Middle-Skip Beats Importance Pruning for Dense-Retrieval Query Encoders</em>, finds that the popular answer is wrong for retrieval. It also turns the better answer into <strong>ElasticSkip</strong>, a query encoder that can run at any depth from a single base model.</p>
+<section id="the-inherited-rule-prune-by-importance" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="the-inherited-rule-prune-by-importance">The inherited rule: prune by importance</h2>
+<p>Most layer-pruning work comes from <em>generative</em> LLMs, and it ranks layers by <strong>importance</strong>. ShortGPT’s Block-Influence (BI) and HARNESS-LM’s norm-ratio both score a layer as redundant when its output looks a lot like its input, and remove the most redundant ones. Nobody had really asked whether this is the right rule for retrieval.</p>
+<p>We looked at what these rules actually delete in Qwen3-Embedding encoders (0.6B with 28 layers, 4B with 36). Both of them <strong>thin the tail</strong>. Of the final six layers, norm-ratio removes four at both sizes, and BI removes four at 0.6B and five at 4B. What they keep up there is scattered, never the contiguous final block.</p>
+<div id="fig-cut" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-cut-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<a href="images/where_to_cut.svg" class="lightbox page-columns page-full" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Which layers each strategy keeps when a 28-layer encoder is cut to 14. The layouts are illustrative; the “final-6 kept” counts are the real ones at 0.6B."><img src="images/where_to_cut.svg" class="img-fluid figure-img column-page"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cut-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Which layers each strategy keeps when a 28-layer encoder is cut to 14. The layouts are illustrative; the “final-6 kept” counts are the real ones at 0.6B.
+</figcaption>
+</figure>
+</div>
+<p>The reason is what these scores measure. Near the top of the network, a layer whose output resembles its input isn’t idling; the representation is <strong>settling</strong>. For retrieval, that settling is exactly the work that matters.</p>
+</section>
+<section id="the-isolation-experiment" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="the-isolation-experiment">The isolation experiment</h2>
+<p>To test this cleanly, we fixed one compression recipe and varied <em>only</em> the layers removed. Every model goes through the same three stages:</p>
+<ol type="1">
+<li><strong>Structured removal.</strong> Drop <em>k</em> layers; the rest keep their pretrained weights.</li>
+<li><strong>Fidelity warm-start.</strong> Train small LoRA adapters so the compressed model’s query embeddings line up with the full model’s, placing it in the right neighbourhood before any ranking objective.</li>
+<li><strong>Denoised contrastive refinement.</strong> Train for ranking with InfoNCE. MS MARCO labels only about one relevant document per query, so many “negatives” are really relevant but unlabelled. We mask the teacher’s top-ranked documents out of the negative pool. HARNESS-LM does the same, and we don’t claim it as new.</li>
+</ol>
+<p>Then we compared six ways of choosing the layers, at an aggressive cut: keep 14 of 28 layers at 0.6B and 16 of 36 at 4B.</p>
+<div id="fig-isolation" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-isolation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<a href="images/isolation.svg" class="lightbox page-columns page-full" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: nDCG@10 on MS MARCO dev for six layer-selection strategies under an identical recipe."><img src="images/isolation.svg" class="img-fluid figure-img column-page"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-isolation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: nDCG@10 on MS MARCO dev for six layer-selection strategies under an identical recipe.
+</figcaption>
+</figure>
+</div>
+<p>A <strong>contiguous middle-skip</strong> wins at both sizes: keep the early layers and the final block, and drop the middle. It beats norm-ratio by <strong>+1.70</strong> and <strong>+1.22</strong> nDCG@10, and Block-Influence by <strong>+1.50</strong> and <strong>+4.10</strong>. Norm-ratio is a strong baseline, but at 4B Block-Influence, the more aggressive tail-stripper, falls <strong>below random layer removal</strong>.</p>
+<p>Two more observations stood out:</p>
+<ul>
+<li><strong>Keeping the tail is necessary but not sufficient.</strong> Prefix-drop keeps all six final layers and is still among the weakest strategies. The early layers matter too.</li>
+<li><strong>Where you cut dwarfs how you train.</strong> Across strategies, nDCG@10 spans <strong>6.72</strong> (0.6B) and <strong>9.42</strong> (4B) points. Swapping the training objective moves it by at most <strong>2.03</strong>. At 4B, middle-skip with the <em>worst</em> objective (39.59) still ties norm-ratio with the <em>best</em> one (39.56).</li>
+</ul>
+</section>
+<section id="why-the-tail-matters" class="level2">
+<h2 class="anchored" data-anchor-id="why-the-tail-matters">Why the tail matters</h2>
+<p>We probed the encoder to see what the final layers do.</p>
+<ul>
+<li><strong>They purify the query.</strong> Probing each layer, “concept” information (what the query is about) stays readable throughout, while “surface” information (its exact form, such as length) steadily fades. The two cross around layer 18, and the concept margin keeps growing to the top.</li>
+<li><strong>The readout aligns on concepts.</strong> Inside the network, query and document embeddings look similar for shallow reasons: even a <em>random</em> document scores 0.92 cosine at a late hidden layer. Only at the final output does the surface agreement collapse while the concept agreement survives. That is where a query and its relevant document actually meet.</li>
+<li><strong>The causal test.</strong> At a fixed number of executed layers, we swapped tail layers for random middle layers. Quality falls steadily: at 0.6B from 37.44 to 32.11, and at 4B from 40.78 to 36.28. The drop is convex, so the last tail layers are worth 4 to 6 times the first ones. With no tail at all, a model lands in the same tier as plain truncation. Importance pruning gives up the tail, not the depth.</li>
+</ul>
+<p>There’s a lesson about distillation here too. Across 63 trained checkpoints, how closely a compressed model copies its teacher’s embeddings tracks ranking quality only loosely. The correlation is r = 0.49 at 0.6B and r = 0.81 at 4B, and it carries almost no signal for any individual query. One example: ElasticSkip at depth 14 is <em>less</em> faithful to the teacher than prefix-drop (cosine 0.52 vs 0.55) yet ranks <strong>6.2 points</strong> better. Retrieval reads each embedding through a single dot product, so copying the teacher is neither necessary nor sufficient for ranking well.</p>
+</section>
+<section id="elasticskip-one-base-every-depth" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="elasticskip-one-base-every-depth">ElasticSkip: one base, every depth</h2>
+<div id="fig-arch" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-arch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<a href="images/elasticskip.svg" class="lightbox page-columns page-full" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: ElasticSkip keeps the prefix and tail, skips a middle block of width k, and chooses k at deployment time."><img src="images/elasticskip.svg" class="img-fluid figure-img column-page"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-arch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: ElasticSkip keeps the prefix and tail, skips a middle block of width <em>k</em>, and chooses <em>k</em> at deployment time.
+</figcaption>
+</figure>
+</div>
+<p>ElasticSkip packages the winning cut as a deployable system:</p>
+<ul>
+<li><strong>Contiguous middle-skip.</strong> Run the prefix and the tail and skip a middle block of width <em>k</em>.</li>
+<li><strong>Depth-specific low-rank compensation.</strong> A <strong>shared</strong> LoRA adapter on the prefix is active at every depth, and a small <strong>per-depth</strong> adapter sits on the tail. One base model plus a handful of adapters covers the whole speed–quality trade-off.</li>
+<li><strong>Depth is a deployment choice.</strong> Pick <em>k</em> to fit the latency budget, merge its adapters into the weights, and serve at a fixed depth. A new operating point is a cheap adapter, not a new model, and the document index never has to be rebuilt.</li>
+</ul>
+<p>We compared one ElasticSkip base against HARNESS-LM, the state-of-the-art compression method, trained <strong>separately for each depth</strong>, at 0.6B, 4B and 8B:</p>
+<div id="fig-crossscale" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-crossscale-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<a href="images/crossscale.svg" class="lightbox page-columns page-full" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;4: nDCG@10 vs executed layers at three scales. Labels mark the gap at the most aggressive cut."><img src="images/crossscale.svg" class="img-fluid figure-img column-page"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-crossscale-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: nDCG@10 vs executed layers at three scales. Labels mark the gap at the most aggressive cut.
+</figcaption>
+</figure>
+</div>
+<p>ElasticSkip beats the per-depth baseline at <strong>14 of the 15</strong> operating points, by <strong>+0.38 to +1.65</strong>, and ties the 15th (0.6B at 24 layers). The gap is largest under aggressive compression. At 8B, the 32-layer ElasticSkip even <strong>beats its own uncompressed teacher</strong> (43.91 vs 43.29), because the refinement stage sharpens ranking on MS MARCO.</p>
+<p>Sharing one base across depths is mainly a deployment convenience at 0.6B, where it costs a hair: −0.10 on average against a single-depth middle-skip model. At 4B and 8B it turns into a small, consistent <strong>gain</strong> of +0.37 and +0.76.</p>
+<p><strong>It holds out of domain.</strong> On 11 BEIR datasets, zero-shot at the most aggressive cut, ElasticSkip averages <strong>43.70 vs 41.79</strong> for HARNESS-LM at 0.6B (winning 10 of 11 datasets) and <strong>48.96 vs 46.14</strong> at 4B (9 of 11). The margins are larger out of domain than in domain, and largest on big corpora with a million or more documents, where near-miss distractors make concept purity count. A fixed structural cut needs no calibration data, so it transfers.</p>
+</section>
+<section id="caveats" class="level2">
+<h2 class="anchored" data-anchor-id="caveats">Caveats</h2>
+<ul>
+<li>The isolation and cross-scale results are <strong>single-seed</strong>; the tail-swap ablation uses three seeds.</li>
+<li>Keeping the tail is <strong>necessary, not sufficient</strong>: the early layers matter as well.</li>
+<li>The denoised contrastive stage is shared with HARNESS-LM. Our gains come from <em>where</em> we cut, not from a new loss.</li>
+</ul>
+</section>
+<section id="takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="takeaways">Takeaways</h2>
+<ul>
+<li><strong>Where you cut matters more than how you heal the cut.</strong> Choosing layers moved quality up to 9.4 points; the training recipe, about 2.</li>
+<li><strong>Retrieval needs its tail.</strong> The final layers build the concept-level embedding that the dot product reads.</li>
+<li><strong>Don’t chase the teacher’s hidden states.</strong> Imitation fidelity is a weak proxy for ranking.</li>
+<li><strong>One model, many depths.</strong> ElasticSkip replaces a family of compressed encoders with one base and a few adapters.</li>
+</ul>
+</section>
+<section id="read-more" class="level2">
+<h2 class="anchored" data-anchor-id="read-more">Read more</h2>
+<ul>
+<li>📄 Paper (preprint): <a href="https://drive.google.com/file/d/1UYIGJPfBTWnW6OxifBpDc5IctFe1RNsC/view?usp=sharing"><em>Where to Cut? Contiguous Middle-Skip Beats Importance Pruning for Dense-Retrieval Query Encoders</em></a></li>
+<li>💻 Code: coming soon</li>
+</ul>
+<p>This is joint work with Deepak Saini and Aamod Khatiwada, advised by Sumeet Agarwal and Manik Varma.</p>
+</section>
+<section id="the-poster" class="level2">
+<h2 class="anchored" data-anchor-id="the-poster">The poster</h2>
+<p>Here’s our poster. Click it to zoom, or <a href="elasticskip_poster.pdf">download the PDF</a>.</p>
+<div id="fig-poster" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-poster-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/poster.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;5: ElasticSkip poster"><img src="images/poster.jpg" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-poster-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: ElasticSkip poster
+</figcaption>
+</figure>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script>
+/* ─────────────────────────────────────────────────────────────
+   UtopiaOS — client runtime for suchith720.github.io
+   - per-page shell prompt above titles
+   - reveal-on-scroll
+   - matrix rain + interactive shell on the home page
+   ───────────────────────────────────────────────────────────── */
+(function () {
+  "use strict";
+
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var store = {
+    get: function (k) { try { return window.sessionStorage.getItem(k); } catch (e) { return null; } },
+    set: function (k, v) { try { window.sessionStorage.setItem(k, v); } catch (e) {} }
+  };
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  // ── Per-page prompt ──────────────────────────────────────────
+  function pagePrompt() {
+    var header = document.getElementById("title-block-header");
+    if (!header || document.body.classList.contains("page-home")) return;
+    var p = window.location.pathname.replace(/\/index\.html$/, "/").replace(/\.html$/, "");
+    var path = "~", cmd = "cat README.md";
+    var m;
+    if ((m = p.match(/posts\/research\/([^/]+)/))) { path = "~/workshop/" + m[1]; cmd = "cat index.md"; }
+    else if ((m = p.match(/posts\/adventure\/([^/]+)/))) { path = "~/expeditions/" + m[1]; cmd = "cat index.md"; }
+    else if (/research_blog/.test(p)) { path = "~/workshop"; cmd = "ls -la"; }
+    else if (/adventure_blog/.test(p)) { path = "~/expeditions"; cmd = "ls -la"; }
+    else if (/about/.test(p)) { path = "~"; cmd = "cat king.md"; }
+    else if (/404/.test(p)) { return; }
+    var el = document.createElement("div");
+    el.className = "utopia-prompt";
+    el.innerHTML = '<span class="p-user">guest</span><span class="p-at">@</span><span class="p-host">utopia</span>:' +
+      '<span class="p-path">' + esc(path) + '</span>$ <span class="p-cmd">' + esc(cmd) + '</span> <span class="cursor"></span>';
+    header.insertBefore(el, header.firstChild);
+  }
+
+  // ── Reveal on scroll ─────────────────────────────────────────
+  function reveals() {
+    var els = document.querySelectorAll(".reveal");
+    if (!("IntersectionObserver" in window) || reduceMotion) {
+      els.forEach(function (e) { e.classList.add("in"); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+      });
+    }, { rootMargin: "0px 0px -40px 0px" });
+    els.forEach(function (e) { io.observe(e); });
+  }
+
+  // ── Matrix rain ──────────────────────────────────────────────
+  var matrix = { boost: false };
+  function matrixRain() {
+    var c = document.getElementById("matrix");
+    if (!c || reduceMotion) return;
+    var ctx = c.getContext("2d");
+    var glyphs = "01アイウエオカキクケコサシスセソタチツテトナニヌネノλΣ∂∇∞≈⊕".split("");
+    var size = 16, cols, drops, w, h, last = 0;
+    function resize() {
+      var dpr = window.devicePixelRatio || 1;
+      w = window.innerWidth; h = window.innerHeight;
+      c.width = w * dpr; c.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cols = Math.ceil(w / size);
+      drops = [];
+      for (var i = 0; i < cols; i++) drops[i] = Math.random() * -60;
+    }
+    resize();
+    window.addEventListener("resize", resize);
+    function frame(t) {
+      requestAnimationFrame(frame);
+      if (document.hidden || t - last < 55) return;
+      last = t;
+      ctx.fillStyle = "rgba(7, 9, 10, 0.12)";
+      ctx.fillRect(0, 0, w, h);
+      ctx.font = size + "px JetBrains Mono, monospace";
+      for (var i = 0; i < cols; i++) {
+        var y = drops[i] * size;
+        if (y > 0) {
+          var crown = Math.random() < 0.004;
+          ctx.fillStyle = crown ? "#f5c542" : (Math.random() < 0.08 ? "#c8ffe0" : "#3dff9a");
+          ctx.fillText(crown ? "♛" : glyphs[(Math.random() * glyphs.length) | 0], i * size, y);
+        }
+        if (y > h && Math.random() > 0.975) drops[i] = 0;
+        drops[i] += matrix.boost ? 1.4 : 1;
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  // ── The shell ────────────────────────────────────────────────
+  function shell() {
+    var body = document.getElementById("shell-body");
+    if (!body) return;
+
+    var BANNER =
+      "██╗   ██╗████████╗ ██████╗ ██████╗ ██╗ █████╗\n" +
+      "██║   ██║╚══██╔══╝██╔═══██╗██╔══██╗██║██╔══██╗\n" +
+      "██║   ██║   ██║   ██║   ██║██████╔╝██║███████║\n" +
+      "██║   ██║   ██║   ██║   ██║██╔═══╝ ██║██╔══██║\n" +
+      "╚██████╔╝   ██║   ╚██████╔╝██║     ██║██║  ██║\n" +
+      " ╚═════╝    ╚═╝    ╚═════╝ ╚═╝     ╚═╝╚═╝  ╚═╝";
+
+    // posts, harvested from the "latest transmissions" listing
+    var posts = [];
+    document.querySelectorAll("[data-post]").forEach(function (a) {
+      var d = a.querySelector(".ls-desc"), dt = a.querySelector(".date");
+      posts.push({
+        slug: a.getAttribute("data-slug"),
+        title: a.getAttribute("data-title"),
+        realm: a.getAttribute("data-realm"),
+        href: a.getAttribute("href"),
+        desc: d ? d.textContent.trim() : "",
+        date: dt ? dt.textContent.trim() : ""
+      });
+    });
+
+    var DIRS = {
+      workshop: { href: "research_blog.html", realm: "workshop", blurb: "The Alchemist's Workshop — crafting ideas into reality." },
+      expeditions: { href: "adventure_blog.html", realm: "expedition", blurb: "Roaming Beyond Borders — adventures of my life." }
+    };
+    var FILES = {
+      "king.md": { href: "about.html" },
+      "cv.pdf": { href: "data/suchith_prabhu_cv.pdf" },
+      "decree.md": {},
+      "socials.txt": {}
+    };
+    var cwd = "~";
+    var history = [], hIdx = 0;
+    var out, inputLine, input, busy = true;
+
+    function promptHTML() {
+      return '<span class="sh-prompt">guest<span class="sh-dim">@</span><span class="host">utopia</span>:<span class="path">' +
+        esc(cwd) + "</span>$</span>";
+    }
+    function link(text, href, cls) {
+      return '<a class="sh-link' + (cls ? " " + cls : "") + '" href="' + esc(href) + '">' + esc(text) + "</a>";
+    }
+    function print(html, cls) {
+      var d = document.createElement("div");
+      d.className = "sh-line" + (cls ? " " + cls : "");
+      d.innerHTML = html === "" ? "&nbsp;" : html;
+      out.appendChild(d);
+      scroll();
+      return d;
+    }
+    function printPre(text, cls) {
+      var p = document.createElement("pre");
+      p.className = cls || "";
+      p.textContent = text;
+      out.appendChild(p);
+      scroll();
+    }
+    function scroll() { body.scrollTop = body.scrollHeight; }
+    function sleep(ms) { return new Promise(function (r) { setTimeout(r, skip ? 0 : ms); }); }
+
+    function dirPosts(dir) {
+      var realm = DIRS[dir] && DIRS[dir].realm;
+      return posts.filter(function (p) { return p.realm === realm; });
+    }
+    function currentDir() { return cwd === "~" ? null : cwd.replace("~/", ""); }
+    function findPost(name) {
+      name = (name || "").replace(/\/$/, "").split("/").pop();
+      var pool = currentDir() ? dirPosts(currentDir()) : posts;
+      return pool.filter(function (p) { return p.slug.toLowerCase() === name.toLowerCase(); })[0] ||
+        posts.filter(function (p) { return p.slug.toLowerCase() === name.toLowerCase(); })[0];
+    }
+    function go(href) {
+      print('<span class="sh-dim">→ opening ' + esc(href) + " …</span>");
+      setTimeout(function () { window.location.href = href; }, 380);
+    }
+    function listing(dir) {
+      if (!dir) {
+        print(link("workshop/", "#", "sh-cd") + "  " + link("expeditions/", "#", "sh-cd") + "  " +
+          link("king.md", "about.html") + "  " + link("cv.pdf", "data/suchith_prabhu_cv.pdf") + "  " +
+          '<span class="sh-gold">decree.md</span>  <span class="sh-gold">socials.txt</span>');
+        return;
+      }
+      var ps = dirPosts(dir);
+      if (!ps.length) { print('<span class="sh-dim">(empty — the scribes are still writing)</span>'); return; }
+      ps.forEach(function (p) {
+        print('<span class="sh-dim">-rw-r--r-- king ' + esc(p.date) + "</span>  " + link(p.slug + "/", p.href) +
+          '  <span class="sh-dim"># ' + esc(p.title) + "</span>");
+      });
+      print('<span class="sh-dim">full index: </span>' + link(DIRS[dir].href, DIRS[dir].href));
+    }
+
+    var COMMANDS = {
+      help: function () {
+        var rows = [
+          ["whoami", "who rules this place"],
+          ["ls [dir]", "list the kingdom"],
+          ["cd <dir>", "enter workshop/ or expeditions/"],
+          ["cat <file>", "read a file or post"],
+          ["open <file>", "visit a page (open . for current dir)"],
+          ["neofetch", "system information"],
+          ["git log", "the king's history"],
+          ["socials", "find me elsewhere"],
+          ["matrix / crt", "toggle visual effects"],
+          ["clear", "clear the screen"]
+        ];
+        print('<span class="sh-gold">UtopiaOS shell — available commands</span>');
+        rows.forEach(function (r) {
+          print('  <span class="sh-ok">' + esc((r[0] + "              ").slice(0, 14)) + '</span><span class="sh-dim">' + esc(r[1]) + "</span>");
+        });
+        print('<span class="sh-dim">  …and a few hidden ones. A true hacker explores.</span>');
+      },
+      whoami: function () {
+        print('<span class="sh-gold">Suchith Prabhu</span> — King of Utopia <span class="sh-dim">(uid=0, root)</span>');
+        print("PhD scholar @ School of AI, IIT Delhi · working on <span class=\"sh-ok\">extreme classification</span>");
+        print('<span class="sh-dim">off-duty: tennis · tabla · painting</span>');
+        print('<span class="sh-dim">you, on the other hand, are </span>guest<span class="sh-dim">. welcome anyway.</span>');
+      },
+      ls: function (args) {
+        var t = (args[0] || "").replace(/^~\/?/, "").replace(/\/$/, "");
+        if (!t || t === ".") return listing(currentDir());
+        if (t === "..") return listing(null);
+        if (DIRS[t]) return listing(t);
+        print("ls: cannot access '" + esc(args[0]) + "': No such file or directory", "sh-err");
+      },
+      cd: function (args) {
+        var t = (args[0] || "~").replace(/^~\/?/, "").replace(/\/$/, "");
+        if (!t || t === ".." || t === "~") { cwd = "~"; return; }
+        if (t === ".") return;
+        if (DIRS[t]) { cwd = "~/" + t; print('<span class="sh-dim">' + esc(DIRS[t].blurb) + "  (try </span>ls<span class=\"sh-dim\"> or </span>open .<span class=\"sh-dim\">)</span>"); return; }
+        if (findPost(t)) { print("cd: " + esc(t) + ": it's a story, not a directory — try <span class=\"sh-ok\">open " + esc(t) + "</span>", "sh-warn"); return; }
+        print("cd: no such file or directory: " + esc(args[0]), "sh-err");
+      },
+      pwd: function () { print(cwd.replace("~", "/home/king")); },
+      cat: function (args) {
+        var f = (args[0] || "").replace(/^~\//, "");
+        if (!f) { print("cat: missing file operand", "sh-err"); return; }
+        if (f === "king.md") { COMMANDS.whoami(); print(link("→ read the full dossier", "about.html")); return; }
+        if (f === "decree.md") {
+          print('<span class="sh-gold"># The Decree of Utopia</span>');
+          print("A world guided by kindness, fairness and unity. People support one another, value equality");
+          print("and respect, and work together for shared growth. Education, creativity and personal");
+          print("development are encouraged — happiness is not just an aim, but a way of life.");
+          return;
+        }
+        if (f === "socials.txt") return COMMANDS.socials();
+        if (f === "cv.pdf") { print("cat: cv.pdf: binary file — you want <span class=\"sh-ok\">open cv.pdf</span>", "sh-warn"); return; }
+        if (DIRS[f.replace(/\/$/, "")]) { print("cat: " + esc(f) + ": Is a directory", "sh-err"); return; }
+        var p = findPost(f);
+        if (p) {
+          print('<span class="sh-gold"># ' + esc(p.title) + '</span>  <span class="sh-dim">' + esc(p.date) + "</span>");
+          if (p.desc) print(esc(p.desc));
+          print(link("→ read the full story", p.href));
+          return;
+        }
+        print("cat: " + esc(f) + ": No such file or directory", "sh-err");
+      },
+      open: function (args) {
+        var f = (args[0] || ".").replace(/^~\//, "").replace(/\/$/, "");
+        if (f === "." ) { var d = currentDir(); return go(d ? DIRS[d].href : "about.html"); }
+        if (DIRS[f]) return go(DIRS[f].href);
+        if (FILES[f] && FILES[f].href) return go(FILES[f].href);
+        var p = findPost(f);
+        if (p) return go(p.href);
+        print("open: " + esc(f) + ": not found", "sh-err");
+      },
+      socials: function () {
+        print("github   " + link("github.com/suchith720", "https://github.com/suchith720"));
+        print("twitter  " + link("twitter.com/suchith720", "https://twitter.com/suchith720"));
+        print("cv       " + link("cv.pdf", "data/suchith_prabhu_cv.pdf"));
+      },
+      neofetch: function () {
+        var art = [
+          "     ♦     ♦     ♦    ",
+          "    /\\    /\\    /\\    ",
+          "   /  \\__/  \\__/  \\   ",
+          "  |   ◆    ◆    ◆  |  ",
+          "  |________________|  ",
+          "  [================]  ",
+          "                      ",
+          "                      "
+        ];
+        var info = [
+          '<span class="sh-ok">guest</span>@<span class="sh-gold">utopia</span>',
+          '<span class="sh-dim">-----------------</span>',
+          '<span class="sh-gold">OS</span>: UtopiaOS x86_64 (kingdom edition)',
+          '<span class="sh-gold">Host</span>: School of AI, IIT Delhi',
+          '<span class="sh-gold">Kernel</span>: extreme-classification',
+          '<span class="sh-gold">Shell</span>: zsh (royal decree mode)',
+          '<span class="sh-gold">Packages</span>: tennis, tabla, painting',
+          '<span class="sh-gold">Theme</span>: phosphor-green · crown-gold'
+        ];
+        for (var i = 0; i < art.length; i++) print('<span class="sh-gold">' + esc(art[i]) + "</span>" + info[i]);
+      },
+      git: function (args) {
+        if (args[0] !== "log") { print("git: try <span class=\"sh-ok\">git log</span>", "sh-warn"); return; }
+        var log = [
+          ["2025", "MOGIC accepted at ICML 2025 · Vancouver"],
+          ["2025", "Graph-regularized encoders · WWW '25 Companion · Sydney"],
+          ["2021", "checkout -b phd → School of AI, IIT Delhi"],
+          ["2019", "Software Developer @ Vehant Technologies"],
+          ["2015", "init: B.Tech CS @ NIT Goa"]
+        ];
+        log.forEach(function (l, i) {
+          print('<span class="sh-gold">* ' + (["a1c0de", "7e57ed", "b0071e", "c0ffee", "5eed01"][i]) + "</span> " +
+            (i === 0 ? '<span class="sh-cyan">(HEAD → main)</span> ' : "") +
+            '<span class="sh-dim">' + l[0] + "</span>  " + esc(l[1]));
+        });
+        print(link("→ full history", "about.html"));
+      },
+      history: function () { history.forEach(function (h, i) { print('<span class="sh-dim">' + (i + 1) + "</span>  " + esc(h)); }); },
+      date: function () { print(new Date().toString()); },
+      echo: function (args) { print(esc(args.join(" "))); },
+      uname: function () { print("UtopiaOS 2.6.0-royal #1 SMP PREEMPT_KINGDOM x86_64"); },
+      clear: function () { out.innerHTML = ""; },
+      matrix: function () {
+        var c = document.getElementById("matrix");
+        if (!c) return;
+        matrix.boost = !matrix.boost;
+        c.style.opacity = matrix.boost ? ".5" : "";
+        print(matrix.boost ? "wake up, guest… the matrix has you." : "back to reality.", "sh-ok");
+      },
+      crt: function () {
+        document.body.classList.toggle("no-crt");
+        print("crt scanlines " + (document.body.classList.contains("no-crt") ? "off" : "on"), "sh-ok");
+      },
+      sudo: function () {
+        print('<span class="sh-dim">[sudo] password for guest:</span>');
+        print("guest is not in the sudoers file. Only the King holds root.", "sh-err");
+        print("This incident will be reported to the royal court.", "sh-err");
+      },
+      su: function () { COMMANDS.sudo(); },
+      rm: function () { print("rm: permission denied — the kingdom is protected by royal decree.", "sh-err"); },
+      exit: function () { print("There is no exit from Utopia. (Closing the tab still works, though.)", "sh-warn"); },
+      vim: function () { print("You are now trapped in vim forever. Just kidding — :q!", "sh-warn"); },
+      emacs: function () { print("emacs: a great operating system, lacking only a decent editor.", "sh-warn"); },
+      tabla: function () {
+        print('<span class="sh-gold">teentaal · 16 beats</span>');
+        print("dha dhin dhin dha | dha dhin dhin dha | dha tin tin ta | ta dhin dhin dha");
+      },
+      tennis: function () {
+        print("  o  ·  ·  ·  ·  ·  🎾");
+        print(" /|\\                    <span class=\"sh-ok\">ACE.</span> 15–love. The king serves again.");
+        print(" / \\");
+      },
+      paint: function () { print("🎨  the royal canvas is still drying. check back soon.", "sh-gold"); },
+      crown: function () { print("♛  long live the king  ♛", "sh-gold"); },
+      ping: function () { print("PING utopia (127.0.0.1): 56 data bytes"); print("64 bytes from utopia: icmp_seq=0 ttl=64 time=0.042 ms — the kingdom is alive.", "sh-ok"); },
+      man: function (args) { print("No manual entry for " + esc(args[0] || "that") + ". Try <span class=\"sh-ok\">help</span>."); }
+    };
+    var ALIASES = {
+      "?": "help", dir: "ls", ll: "ls", "ls -la": "ls", about: "cat king.md", research: "cd workshop",
+      blog: "ls workshop", adventures: "cd expeditions", cv: "open cv.pdf", contact: "socials",
+      king: "crown", nano: "vim", vi: "vim", fastfetch: "neofetch", cls: "clear", quit: "exit", logout: "exit"
+    };
+
+    function run(raw) {
+      var line = raw.trim();
+      print(promptHTML() + " " + esc(raw));
+      if (!line) return;
+      history.push(line); hIdx = history.length;
+      if (ALIASES[line]) line = ALIASES[line];
+      var parts = line.split(/\s+/);
+      var cmd = parts[0].toLowerCase();
+      if (ALIASES[cmd]) { parts = ALIASES[cmd].split(/\s+/).concat(parts.slice(1)); cmd = parts[0]; }
+      if (cmd === "rm" && /-rf?/.test(parts[1] || "")) return COMMANDS.rm();
+      var fn = COMMANDS[cmd];
+      if (fn) fn(parts.slice(1));
+      else print("zsh: command not found: " + esc(cmd) + " — try <span class=\"sh-ok\">help</span>", "sh-err");
+    }
+
+    function completions(val) {
+      var parts = val.split(/\s+/);
+      if (parts.length === 1) {
+        return Object.keys(COMMANDS).filter(function (c) { return c.indexOf(parts[0]) === 0; });
+      }
+      var word = parts[parts.length - 1];
+      var names = currentDir()
+        ? dirPosts(currentDir()).map(function (p) { return p.slug + "/"; })
+        : Object.keys(DIRS).map(function (d) { return d + "/"; }).concat(Object.keys(FILES));
+      return names.filter(function (n) { return n.toLowerCase().indexOf(word.toLowerCase()) === 0; })
+        .map(function (n) { return parts.slice(0, -1).concat(n).join(" "); });
+    }
+
+    function buildInput() {
+      inputLine = document.createElement("div");
+      inputLine.className = "sh-line sh-input-line";
+      inputLine.innerHTML = '<span class="sh-p"></span>';
+      input = document.createElement("input");
+      input.className = "sh-input";
+      input.setAttribute("aria-label", "Terminal input — type help");
+      input.setAttribute("autocomplete", "off");
+      input.setAttribute("autocapitalize", "off");
+      input.setAttribute("spellcheck", "false");
+      inputLine.appendChild(input);
+      body.appendChild(inputLine);
+      refreshPrompt();
+
+      input.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          var v = input.value; input.value = "";
+          run(v); refreshPrompt(); scroll();
+        } else if (e.key === "ArrowUp") {
+          if (hIdx > 0) { hIdx--; input.value = history[hIdx]; }
+          e.preventDefault();
+        } else if (e.key === "ArrowDown") {
+          if (hIdx < history.length - 1) { hIdx++; input.value = history[hIdx]; } else { hIdx = history.length; input.value = ""; }
+          e.preventDefault();
+        } else if (e.key === "Tab") {
+          e.preventDefault();
+          var opts = completions(input.value);
+          if (opts.length === 1) input.value = opts[0] + (opts[0].slice(-1) === "/" ? "" : " ");
+          else if (opts.length > 1) { print(promptHTML() + " " + esc(input.value)); print(opts.map(function (o) { return esc(o.split(" ").pop()); }).join("   "), "sh-dim"); }
+        } else if (e.key === "l" && e.ctrlKey) {
+          e.preventDefault(); COMMANDS.clear();
+        } else if (e.key === "c" && e.ctrlKey && !window.getSelection().toString()) {
+          print(promptHTML() + " " + esc(input.value) + "^C"); input.value = "";
+        }
+      });
+    }
+    function refreshPrompt() { inputLine.querySelector(".sh-p").innerHTML = promptHTML(); }
+
+    // clicks: focus input, handle `cd` links inside output
+    body.addEventListener("click", function (e) {
+      var a = e.target.closest && e.target.closest("a.sh-cd");
+      if (a) {
+        e.preventDefault();
+        if (busy) return;
+        var dir = a.textContent.replace(/\/$/, "");
+        run("cd " + dir); run("ls"); refreshPrompt(); return;
+      }
+      if (!busy && input && !window.getSelection().toString() && !(e.target.closest && e.target.closest("a"))) input.focus();
+    });
+
+    // ── boot sequence ──
+    var skip = reduceMotion;
+    function skipAll() { skip = true; }
+    body.addEventListener("click", skipAll, { once: true });
+    document.addEventListener("keydown", skipAll, { once: true });
+
+    async function typeCmd(cmd) {
+      var line = print(promptHTML() + " ");
+      for (var i = 0; i < cmd.length; i++) {
+        line.innerHTML = promptHTML() + " " + esc(cmd.slice(0, i + 1)) + '<span class="cursor"></span>';
+        await sleep(55 + Math.random() * 45);
+      }
+      line.innerHTML = promptHTML() + " " + esc(cmd);
+      await sleep(160);
+    }
+
+    async function boot() {
+      body.innerHTML = "";
+      out = document.createElement("div");
+      body.appendChild(out);
+      var returning = store.get("utopia-booted");
+      if (!returning) {
+        var n = posts.length;
+        var lines = [
+          ["[  0.000000] UtopiaOS 2.6.0-royal (king@utopia) #1 SMP", ""],
+          ["[  0.041337] mounting /kingdom ................", " OK "],
+          ["[  0.083121] loading crown.ko .................", " OK "],
+          ["[  0.120442] starting tabla-daemon ............", " OK "],
+          ["[  0.162001] calibrating tennis racket ........", " OK "],
+          ["[  0.201984] indexing chronicles (" + n + " found) ....", " OK "]
+        ];
+        for (var i = 0; i < lines.length; i++) {
+          print('<span class="sh-dim">' + esc(lines[i][0]) + "</span>" + (lines[i][1] ? ' [<span class="sh-ok">' + lines[i][1] + "</span>]" : ""));
+          await sleep(170);
+        }
+        await sleep(250);
+        store.set("utopia-booted", "1");
+      }
+      printPre(BANNER, "ascii-banner");
+      print('<span class="sh-dim">Last login: ' + esc(new Date().toDateString()) + " from the royal gate</span>");
+      print("");
+      await typeCmd("whoami");
+      COMMANDS.whoami();
+      print("");
+      await typeCmd("ls");
+      listing(null);
+      print("");
+      print('<span class="sh-dim">type </span><span class="sh-ok">help</span><span class="sh-dim"> to explore · click anywhere to type · </span><span class="sh-gold">Tab</span><span class="sh-dim"> completes</span>');
+      busy = false;
+      buildInput();
+      scroll();
+    }
+    boot();
+  }
+
+  // ── Portrait tap (touch devices) ─────────────────────────────
+  function portrait() {
+    var p = document.getElementById("portrait");
+    if (p) p.addEventListener("click", function () { p.classList.toggle("revealed"); });
+  }
+
+  // ── Photo collages: click to enlarge ─────────────────────────
+  // Quarto only bundles its lightbox for markdown images, so collages
+  // (raw HTML) load GLightbox themselves.
+  function collages() {
+    if (!document.querySelector(".collage-item")) return;
+    var base = "https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/";
+    var css = document.createElement("link");
+    css.rel = "stylesheet";
+    css.href = base + "css/glightbox.min.css";
+    document.head.appendChild(css);
+    var js = document.createElement("script");
+    js.src = base + "js/glightbox.min.js";
+    js.onload = function () {
+      window.GLightbox({ selector: ".collage-item", loop: true, touchNavigation: true });
+    };
+    document.body.appendChild(js);
+  }
+
+  function init() {
+    collages();
+    pagePrompt();
+    reveals();
+    matrixRain();
+    shell();
+    portrait();
+    if (window.console) {
+      console.log("%c♛ UtopiaOS", "color:#f5c542;font:bold 20px monospace");
+      console.log("%cCurious, are we? The source lives at https://github.com/suchith720/suchith720.github.io", "color:#3dff9a;font:12px monospace");
+    }
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/suchith720\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p><span class="ft-prompt">[root@utopia ~]$</span> echo “Always hunting for my next life adventure.”</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p><span class="ft-muted">© Kingdom of Utopia · built with Quarto + caffeine</span></p>
+</div>
+  </div>
+</footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+<script src="../../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
