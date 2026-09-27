@@ -4,7 +4,6 @@ author: "Suchith Prabhu"
 date: "2026-09-27"
 description: "Compressing LLM query encoders for dense retrieval: skip the middle, keep the tail, and serve every depth from one base model."
 image: images/thumbnail.png
-draft: true   # hidden until Suchith says go live
 ---
 
 Every time you search, a large language model turns your query into a vector. The documents were embedded once, offline, and frozen into an index, so the query encoder is the only part that runs on every request. Making retrieval cheaper therefore means making the **query encoder** cheaper, and the bluntest tool for that is to delete whole transformer layers.
