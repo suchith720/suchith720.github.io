@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Suchith Prabhu">
+<meta name="dcterms.date" content="2026-09-27">
+<meta name="description" content="Compressing LLM query encoders for dense retrieval: skip the middle, keep the tail, and serve every depth from one base model.">
 
-<title>The Alchemist’s Workshop – root@utopia</title>
+<title>ElasticSkip: Where You Cut Matters More Than How You Heal the Cut – root@utopia</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,27 +26,28 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./assets/favicon.svg" rel="icon" type="image/svg+xml">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-17213b83223d54587794083afa1a79e4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-0b4c3efeb523a874662b1bcc7fac24e5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-17213b83223d54587794083afa1a79e4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-0b4c3efeb523a874662b1bcc7fac24e5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="../../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,96 +74,36 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-project','listing-website','listing-format','listing-language','listing-freeze','listing-title-block-banner','listing-author','listing-lightbox','listing-title','listing-date','listing-jupyter','listing-image','listing-sidebar','listing-path','listing-outputHref','listing-date-modified','listing-description','listing-filename','listing-file-modified','listing-reading-time','listing-word-count',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-date-modified-sort'] },{ data: ['listing-file-modified-sort'] },{ data: ['listing-reading-time-sort'] },{ data: ['listing-word-count-sort'] }],
-      
-      searchColumns: ["listing-project","listing-website","listing-format","listing-language","listing-freeze","listing-title-block-banner","listing-author","listing-lightbox","listing-title","listing-date","listing-jupyter","listing-image","listing-sidebar","listing-path","listing-outputHref","listing-date-modified","listing-description","listing-filename","listing-file-modified","listing-reading-time","listing-word-count"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <style>html{ scroll-behavior: smooth; }</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300..800;1,400&amp;family=VT323&amp;display=swap" rel="stylesheet">
 <meta name="theme-color" content="#07090a">
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<meta property="og:title" content="The Alchemist’s Workshop – root@utopia">
-<meta property="og:description" content="Crafting ideas into reality: models from scratch, experiments and research notes.">
+<meta property="og:title" content="ElasticSkip: Where You Cut Matters More Than How You Heal the Cut – root@utopia">
+<meta property="og:description" content="Compressing LLM query encoders for dense retrieval: skip the middle, keep the tail, and serve every depth from one base model.">
 <meta property="og:image" content="https://suchith720.github.io/posts/research/elasticskip/images/thumbnail.png">
 <meta property="og:site_name" content="root@utopia">
-<meta property="og:image:alt" content="ElasticSkip: Where You Cut Matters More Than How You Heal the Cut">
 <meta property="og:image:height" content="1000">
 <meta property="og:image:width" content="1600">
-<meta name="twitter:title" content="The Alchemist’s Workshop – root@utopia">
-<meta name="twitter:description" content="Crafting ideas into reality: models from scratch, experiments and research notes.">
+<meta name="twitter:title" content="ElasticSkip: Where You Cut Matters More Than How You Heal the Cut – root@utopia">
+<meta name="twitter:description" content="Compressing LLM query encoders for dense retrieval: skip the middle, keep the tail, and serve every depth from one base model.">
 <meta name="twitter:image" content="https://suchith720.github.io/posts/research/elasticskip/images/thumbnail.png">
 <meta name="twitter:creator" content="@suchith720">
-<meta name="twitter:image:alt" content="ElasticSkip: Where You Cut Matters More Than How You Heal the Cut">
 <meta name="twitter:image-height" content="1000">
 <meta name="twitter:image-width" content="1600">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">root@utopia</span>
     </a>
   </div>
@@ -170,23 +114,23 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../../../index.html"> 
 <span class="menu-text">~/home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../../about.html"> 
 <span class="menu-text">~/king</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./research_blog.html" aria-current="page"> 
+    <a class="nav-link" href="../../../research_blog.html"> 
 <span class="menu-text">~/workshop</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./adventure_blog.html"> 
+    <a class="nav-link" href="../../../adventure_blog.html"> 
 <span class="menu-text">~/expeditions</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./data/suchith_prabhu_cv.pdf"> 
+    <a class="nav-link" href="../../../data/suchith_prabhu_cv.pdf"> 
 <span class="menu-text">cv.pdf</span></a>
   </li>  
 </ul>
@@ -212,21 +156,52 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">// contents</h2>
+   
+  <ul>
+  <li><a href="#the-inherited-rule-prune-by-importance" id="toc-the-inherited-rule-prune-by-importance" class="nav-link active" data-scroll-target="#the-inherited-rule-prune-by-importance">The inherited rule: prune by importance</a></li>
+  <li><a href="#the-isolation-experiment" id="toc-the-isolation-experiment" class="nav-link" data-scroll-target="#the-isolation-experiment">The isolation experiment</a></li>
+  <li><a href="#why-the-tail-matters" id="toc-why-the-tail-matters" class="nav-link" data-scroll-target="#why-the-tail-matters">Why the tail matters</a></li>
+  <li><a href="#elasticskip-one-base-every-depth" id="toc-elasticskip-one-base-every-depth" class="nav-link" data-scroll-target="#elasticskip-one-base-every-depth">ElasticSkip: one base, every depth</a></li>
+  <li><a href="#caveats" id="toc-caveats" class="nav-link" data-scroll-target="#caveats">Caveats</a></li>
+  <li><a href="#takeaways" id="toc-takeaways" class="nav-link" data-scroll-target="#takeaways">Takeaways</a></li>
+  <li><a href="#read-more" id="toc-read-more" class="nav-link" data-scroll-target="#read-more">Read more</a></li>
+  <li><a href="#the-poster" id="toc-the-poster" class="nav-link" data-scroll-target="#the-poster">The poster</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">The Alchemist’s Workshop</h1>
-<p class="subtitle lead">Crafting ideas into reality: models from scratch, experiments and research notes.</p>
+<h1 class="title">ElasticSkip: Where You Cut Matters More Than How You Heal the Cut</h1>
 </div>
 
+<div>
+  <div class="description">
+    Compressing LLM query encoders for dense retrieval: skip the middle, keep the tail, and serve every depth from one base model.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Suchith Prabhu </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 27, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -236,85 +211,135 @@ window.Quarto = {
 </header>
 
 
-
-
-
-
-<div class="quarto-listing quarto-listing-container-custom" id="listing-listing">
-<div class="listing-ls">
-  <div class="ls-total">total 4</div>
-
-  <a class="ls-item reveal" href="./posts/research/elasticskip/index.html" data-index="0" data-listing-date-sort="1790452800000" data-listing-file-modified-sort="1790506473607" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1337" data-post="" data-title="ElasticSkip: Where You Cut Matters More Than How You Heal the Cut" data-realm="workshop" data-slug="elasticskip">
-    <div class="ls-thumb">
-      
-        <img src="./posts/research/elasticskip/images/thumbnail.png" alt="ElasticSkip: Where You Cut Matters More Than How You Heal the Cut" loading="lazy">
-      
-    </div>
-    <div class="ls-body">
-      <div class="ls-meta">
-        <span class="perm">-rw-r--r--</span> <span class="own">king</span> <span class="date">2026-09-27</span> elasticskip/ <span class="rt">· 7 min</span>
-        <span class="ls-tag">workshop</span>
-      </div>
-      <div class="ls-title">ElasticSkip: Where You Cut Matters More Than How You Heal the Cut</div>
-      <p class="ls-desc">Compressing LLM query encoders for dense retrieval: skip the middle, keep the tail, and serve every depth from one base model.</p>
-      <span class="ls-read">$ cat elasticskip →</span>
-    </div>
-  </a>
-
-  <a class="ls-item reveal" href="./posts/research/mogic/index.html" data-index="1" data-listing-date-sort="1765742400000" data-listing-file-modified-sort="1790506219545" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1381" data-post="" data-title="MOGIC: Teaching a Small Model to Think Like an Oracle" data-realm="workshop" data-slug="mogic">
-    <div class="ls-thumb">
-      
-        <img src="./posts/research/mogic/images/thumbnail.png" alt="MOGIC: Teaching a Small Model to Think Like an Oracle" loading="lazy">
-      
-    </div>
-    <div class="ls-body">
-      <div class="ls-meta">
-        <span class="perm">-rw-r--r--</span> <span class="own">king</span> <span class="date">2025-12-15</span> mogic/ <span class="rt">· 7 min</span>
-        <span class="ls-tag">workshop</span>
-      </div>
-      <div class="ls-title">MOGIC: Teaching a Small Model to Think Like an Oracle</div>
-      <p class="ls-desc">Our ICML 2025 paper: a slow, all-knowing oracle trains a fast disciple for extreme classification, for 1–2% more accuracy at zero extra inference cost.</p>
-      <span class="ls-read">$ cat mogic →</span>
-    </div>
-  </a>
-
-  <a class="ls-item reveal" href="./posts/research/scratchGPT/index.html" data-index="2" data-listing-date-sort="1678392000000" data-listing-file-modified-sort="1790356402084" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1247" data-post="" data-title="GPT from scratch" data-realm="workshop" data-slug="scratchGPT">
-    <div class="ls-thumb">
-      
-        <img src="./posts/research/scratchGPT/images/thumbnail.png" alt="GPT from scratch" loading="lazy">
-      
-    </div>
-    <div class="ls-body">
-      <div class="ls-meta">
-        <span class="perm">-rw-r--r--</span> <span class="own">king</span> <span class="date">2023-03-10</span> scratchGPT/ <span class="rt">· 7 min</span>
-        <span class="ls-tag">workshop</span>
-      </div>
-      <div class="ls-title">GPT from scratch</div>
-      <p class="ls-desc">Language models have become increasingly popular in recent times. People are using it for various purposes, including information retrieval, language assistance and code…</p>
-      <span class="ls-read">$ cat scratchGPT →</span>
-    </div>
-  </a>
-
-  <a class="ls-item reveal" href="./posts/research/bewakoof-detector/index.html" data-index="3" data-listing-date-sort="1677873600000" data-listing-file-modified-sort="1765907716155" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="310" data-post="" data-title="Bewakoof Detector" data-realm="workshop" data-slug="bewakoof-detector">
-    <div class="ls-thumb">
-      
-        <img src="./posts/research/bewakoof-detector/thumbnail.png" alt="Bewakoof Detector" loading="lazy">
-      
-    </div>
-    <div class="ls-body">
-      <div class="ls-meta">
-        <span class="perm">-rw-r--r--</span> <span class="own">king</span> <span class="date">2023-03-04</span> bewakoof-detector/ <span class="rt">· 2 min</span>
-        <span class="ls-tag">workshop</span>
-      </div>
-      <div class="ls-title">Bewakoof Detector</div>
-      <p class="ls-desc">I trained this cool image classifier using the fastai library to mess with my friend who we both agree is bewakoof with directions.</p>
-      <span class="ls-read">$ cat bewakoof-detector →</span>
-    </div>
-  </a>
-
+<p>Every time you search, a large language model turns your query into a vector. The documents were embedded once, offline, and frozen into an index, so the query encoder is the only part that runs on every request. Making retrieval cheaper therefore means making the <strong>query encoder</strong> cheaper, and the bluntest tool for that is to delete whole transformer layers.</p>
+<p>That raises a deceptively simple question: <strong>which layers should you delete?</strong> Our paper, <em>Where to Cut? Contiguous Middle-Skip Beats Importance Pruning for Dense-Retrieval Query Encoders</em>, finds that the popular answer is wrong for retrieval. It also turns the better answer into <strong>ElasticSkip</strong>, a query encoder that can run at any depth from a single base model.</p>
+<section id="the-inherited-rule-prune-by-importance" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="the-inherited-rule-prune-by-importance">The inherited rule: prune by importance</h2>
+<p>Most layer-pruning work comes from <em>generative</em> LLMs, and it ranks layers by <strong>importance</strong>. ShortGPT’s Block-Influence (BI) and HARNESS-LM’s norm-ratio both score a layer as redundant when its output looks a lot like its input, and remove the most redundant ones. Nobody had really asked whether this is the right rule for retrieval.</p>
+<p>We looked at what these rules actually delete in Qwen3-Embedding encoders (0.6B with 28 layers, 4B with 36). Both of them <strong>thin the tail</strong>. Of the final six layers, norm-ratio removes four at both sizes, and BI removes four at 0.6B and five at 4B. What they keep up there is scattered, never the contiguous final block.</p>
+<div id="fig-cut" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-cut-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<a href="images/where_to_cut.svg" class="lightbox page-columns page-full" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Which layers each strategy keeps when a 28-layer encoder is cut to 14. The layouts are illustrative; the “final-6 kept” counts are the real ones at 0.6B."><img src="images/where_to_cut.svg" class="img-fluid figure-img column-page"></a>
 </div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cut-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Which layers each strategy keeps when a 28-layer encoder is cut to 14. The layouts are illustrative; the “final-6 kept” counts are the real ones at 0.6B.
+</figcaption>
+</figure>
+</div>
+<p>The reason is what these scores measure. Near the top of the network, a layer whose output resembles its input isn’t idling; the representation is <strong>settling</strong>. For retrieval, that settling is exactly the work that matters.</p>
+</section>
+<section id="the-isolation-experiment" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="the-isolation-experiment">The isolation experiment</h2>
+<p>To test this cleanly, we fixed one compression recipe and varied <em>only</em> the layers removed. Every model goes through the same three stages:</p>
+<ol type="1">
+<li><strong>Structured removal.</strong> Drop <em>k</em> layers; the rest keep their pretrained weights.</li>
+<li><strong>Fidelity warm-start.</strong> Train small LoRA adapters so the compressed model’s query embeddings line up with the full model’s, placing it in the right neighbourhood before any ranking objective.</li>
+<li><strong>Denoised contrastive refinement.</strong> Train for ranking with InfoNCE. MS MARCO labels only about one relevant document per query, so many “negatives” are really relevant but unlabelled. We mask the teacher’s top-ranked documents out of the negative pool. HARNESS-LM does the same, and we don’t claim it as new.</li>
+</ol>
+<p>Then we compared six ways of choosing the layers, at an aggressive cut: keep 14 of 28 layers at 0.6B and 16 of 36 at 4B.</p>
+<div id="fig-isolation" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-isolation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<a href="images/isolation.svg" class="lightbox page-columns page-full" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: nDCG@10 on MS MARCO dev for six layer-selection strategies under an identical recipe."><img src="images/isolation.svg" class="img-fluid figure-img column-page"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-isolation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: nDCG@10 on MS MARCO dev for six layer-selection strategies under an identical recipe.
+</figcaption>
+</figure>
+</div>
+<p>A <strong>contiguous middle-skip</strong> wins at both sizes: keep the early layers and the final block, and drop the middle. It beats norm-ratio by <strong>+1.70</strong> and <strong>+1.22</strong> nDCG@10, and Block-Influence by <strong>+1.50</strong> and <strong>+4.10</strong>. Norm-ratio is a strong baseline, but at 4B Block-Influence, the more aggressive tail-stripper, falls <strong>below random layer removal</strong>.</p>
+<p>Two more observations stood out:</p>
+<ul>
+<li><strong>Keeping the tail is necessary but not sufficient.</strong> Prefix-drop keeps all six final layers and is still among the weakest strategies. The early layers matter too.</li>
+<li><strong>Where you cut dwarfs how you train.</strong> Across strategies, nDCG@10 spans <strong>6.72</strong> (0.6B) and <strong>9.42</strong> (4B) points. Swapping the training objective moves it by at most <strong>2.03</strong>. At 4B, middle-skip with the <em>worst</em> objective (39.59) still ties norm-ratio with the <em>best</em> one (39.56).</li>
+</ul>
+</section>
+<section id="why-the-tail-matters" class="level2">
+<h2 class="anchored" data-anchor-id="why-the-tail-matters">Why the tail matters</h2>
+<p>We probed the encoder to see what the final layers do.</p>
+<ul>
+<li><strong>They purify the query.</strong> Probing each layer, “concept” information (what the query is about) stays readable throughout, while “surface” information (its exact form, such as length) steadily fades. The two cross around layer 18, and the concept margin keeps growing to the top.</li>
+<li><strong>The readout aligns on concepts.</strong> Inside the network, query and document embeddings look similar for shallow reasons: even a <em>random</em> document scores 0.92 cosine at a late hidden layer. Only at the final output does the surface agreement collapse while the concept agreement survives. That is where a query and its relevant document actually meet.</li>
+<li><strong>The causal test.</strong> At a fixed number of executed layers, we swapped tail layers for random middle layers. Quality falls steadily: at 0.6B from 37.44 to 32.11, and at 4B from 40.78 to 36.28. The drop is convex, so the last tail layers are worth 4 to 6 times the first ones. With no tail at all, a model lands in the same tier as plain truncation. Importance pruning gives up the tail, not the depth.</li>
+</ul>
+<p>There’s a lesson about distillation here too. Across 63 trained checkpoints, how closely a compressed model copies its teacher’s embeddings tracks ranking quality only loosely. The correlation is r = 0.49 at 0.6B and r = 0.81 at 4B, and it carries almost no signal for any individual query. One example: ElasticSkip at depth 14 is <em>less</em> faithful to the teacher than prefix-drop (cosine 0.52 vs 0.55) yet ranks <strong>6.2 points</strong> better. Retrieval reads each embedding through a single dot product, so copying the teacher is neither necessary nor sufficient for ranking well.</p>
+</section>
+<section id="elasticskip-one-base-every-depth" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="elasticskip-one-base-every-depth">ElasticSkip: one base, every depth</h2>
+<div id="fig-arch" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-arch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<a href="images/elasticskip.svg" class="lightbox page-columns page-full" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: ElasticSkip keeps the prefix and tail, skips a middle block of width k, and chooses k at deployment time."><img src="images/elasticskip.svg" class="img-fluid figure-img column-page"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-arch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: ElasticSkip keeps the prefix and tail, skips a middle block of width <em>k</em>, and chooses <em>k</em> at deployment time.
+</figcaption>
+</figure>
+</div>
+<p>ElasticSkip packages the winning cut as a deployable system:</p>
+<ul>
+<li><strong>Contiguous middle-skip.</strong> Run the prefix and the tail and skip a middle block of width <em>k</em>.</li>
+<li><strong>Depth-specific low-rank compensation.</strong> A <strong>shared</strong> LoRA adapter on the prefix is active at every depth, and a small <strong>per-depth</strong> adapter sits on the tail. One base model plus a handful of adapters covers the whole speed–quality trade-off.</li>
+<li><strong>Depth is a deployment choice.</strong> Pick <em>k</em> to fit the latency budget, merge its adapters into the weights, and serve at a fixed depth. A new operating point is a cheap adapter, not a new model, and the document index never has to be rebuilt.</li>
+</ul>
+<p>We compared one ElasticSkip base against HARNESS-LM, the state-of-the-art compression method, trained <strong>separately for each depth</strong>, at 0.6B, 4B and 8B:</p>
+<div id="fig-crossscale" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-crossscale-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<a href="images/crossscale.svg" class="lightbox page-columns page-full" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;4: nDCG@10 vs executed layers at three scales. Labels mark the gap at the most aggressive cut."><img src="images/crossscale.svg" class="img-fluid figure-img column-page"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-crossscale-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: nDCG@10 vs executed layers at three scales. Labels mark the gap at the most aggressive cut.
+</figcaption>
+</figure>
+</div>
+<p>ElasticSkip beats the per-depth baseline at <strong>14 of the 15</strong> operating points, by <strong>+0.38 to +1.65</strong>, and ties the 15th (0.6B at 24 layers). The gap is largest under aggressive compression. At 8B, the 32-layer ElasticSkip even <strong>beats its own uncompressed teacher</strong> (43.91 vs 43.29), because the refinement stage sharpens ranking on MS MARCO.</p>
+<p>Sharing one base across depths is mainly a deployment convenience at 0.6B, where it costs a hair: −0.10 on average against a single-depth middle-skip model. At 4B and 8B it turns into a small, consistent <strong>gain</strong> of +0.37 and +0.76.</p>
+<p><strong>It holds out of domain.</strong> On 11 BEIR datasets, zero-shot at the most aggressive cut, ElasticSkip averages <strong>43.70 vs 41.79</strong> for HARNESS-LM at 0.6B (winning 10 of 11 datasets) and <strong>48.96 vs 46.14</strong> at 4B (9 of 11). The margins are larger out of domain than in domain, and largest on big corpora with a million or more documents, where near-miss distractors make concept purity count. A fixed structural cut needs no calibration data, so it transfers.</p>
+</section>
+<section id="caveats" class="level2">
+<h2 class="anchored" data-anchor-id="caveats">Caveats</h2>
+<ul>
+<li>The isolation and cross-scale results are <strong>single-seed</strong>; the tail-swap ablation uses three seeds.</li>
+<li>Keeping the tail is <strong>necessary, not sufficient</strong>: the early layers matter as well.</li>
+<li>The denoised contrastive stage is shared with HARNESS-LM. Our gains come from <em>where</em> we cut, not from a new loss.</li>
+</ul>
+</section>
+<section id="takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="takeaways">Takeaways</h2>
+<ul>
+<li><strong>Where you cut matters more than how you heal the cut.</strong> Choosing layers moved quality up to 9.4 points; the training recipe, about 2.</li>
+<li><strong>Retrieval needs its tail.</strong> The final layers build the concept-level embedding that the dot product reads.</li>
+<li><strong>Don’t chase the teacher’s hidden states.</strong> Imitation fidelity is a weak proxy for ranking.</li>
+<li><strong>One model, many depths.</strong> ElasticSkip replaces a family of compressed encoders with one base and a few adapters.</li>
+</ul>
+</section>
+<section id="read-more" class="level2">
+<h2 class="anchored" data-anchor-id="read-more">Read more</h2>
+<ul>
+<li>📄 Paper (preprint): <a href="https://drive.google.com/file/d/1UYIGJPfBTWnW6OxifBpDc5IctFe1RNsC/view?usp=sharing"><em>Where to Cut? Contiguous Middle-Skip Beats Importance Pruning for Dense-Retrieval Query Encoders</em></a></li>
+</ul>
+<p>This is joint work with Deepak Saini and Aamod Khatiwada, advised by Sumeet Agarwal and Manik Varma.</p>
+</section>
+<section id="the-poster" class="level2">
+<h2 class="anchored" data-anchor-id="the-poster">The poster</h2>
+<p>Here’s our poster. Click it to zoom, or <a href="elasticskip_poster.pdf">download the PDF</a>.</p>
+<div id="fig-poster" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-poster-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/poster.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;5: ElasticSkip poster"><img src="images/poster.jpg" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-poster-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: ElasticSkip poster
+</figcaption>
+</figure>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
 <script>
 /* ─────────────────────────────────────────────────────────────
    UtopiaOS — client runtime for suchith720.github.io
@@ -1259,9 +1284,41 @@ window.Quarto = {
 </div>
   </div>
 </footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 
 
-<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
