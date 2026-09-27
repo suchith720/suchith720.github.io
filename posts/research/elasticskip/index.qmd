@@ -85,6 +85,7 @@ Sharing one base across depths is mainly a deployment convenience at 0.6B, where
 ## Read more
 
 - 📄 Paper (preprint): [*Where to Cut? Contiguous Middle-Skip Beats Importance Pruning for Dense-Retrieval Query Encoders*](https://drive.google.com/file/d/1UYIGJPfBTWnW6OxifBpDc5IctFe1RNsC/view?usp=sharing)
+- 💻 Code: coming soon
 
 This is joint work with Deepak Saini and Aamod Khatiwada, advised by Sumeet Agarwal and Manik Varma.
 
