@@ -1,7 +1,7 @@
 ---
 title: "MOGIC: Teaching a Small Model to Think Like an Oracle"
 author: "Suchith Prabhu"
-date: "2026-09-26"
+date: "2025-12-15"
 description: "Our ICML 2025 paper: a slow, all-knowing oracle trains a fast disciple for extreme classification, for 1–2% more accuracy at zero extra inference cost."
 image: images/thumbnail.png
 ---
