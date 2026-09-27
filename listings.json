@@ -2,7 +2,6 @@
   {
     "listing": "/research_blog.html",
     "items": [
-      "/posts/research/elasticskip/index.html",
       "/posts/research/mogic/index.html",
       "/posts/research/scratchGPT/index.html",
       "/posts/research/bewakoof-detector/index.html"
@@ -11,7 +10,6 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/research/elasticskip/index.html",
       "/posts/adventure/louvre-abu-dhabi/index.html",
       "/posts/research/mogic/index.html",
       "/posts/research/scratchGPT/index.html",
